@@ -11,7 +11,7 @@ serve(async (req) => {
   }
 
   try {
-    const { messages, state, lga, weather, language } = await req.json();
+    const { messages, state, lga, weather, cropData, language } = await req.json();
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
@@ -22,14 +22,22 @@ serve(async (req) => {
       ? "Respond in Hausa language."
       : "Respond in English.";
 
-    const systemPrompt = `You are a local agricultural extension officer in ${state}, Nigeria.
-Location: ${lga}
+    const systemPrompt = `You are a Nigerian agricultural extension officer.
+State: ${state}
+Area: ${lga}
 Weather: ${weather}
 
-Give simple, practical farming advice. Use clear language a rural farmer can understand.
-Recommend crops suitable for the region and current weather conditions.
-Keep responses concise and actionable.
-Use bullet points when listing recommendations.
+Suitable crops and farming data for this state:
+${cropData}
+
+Rules:
+- Give practical, actionable farming advice based on the location and current weather.
+- Use simple language a rural farmer can understand.
+- Recommend ONLY crops suitable for this specific state (listed above).
+- Use the weather data to guide your advice (e.g., delay planting if dry, good time to plant if rain is coming).
+- When asked about planting, include spacing, soil preparation, and fertilizer timing.
+- Keep responses concise with bullet points for recommendations.
+- If the farmer asks about a crop not suited for their state, explain why and suggest alternatives.
 ${langInstruction}`;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {

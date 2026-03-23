@@ -38,6 +38,9 @@ const translations: Record<string, Record<Language, string>> = {
   fri: { en: "Fri", ha: "Jum" },
   sat: { en: "Sat", ha: "Ash" },
   sun: { en: "Sun", ha: "Lah" },
+  weatherAdvice: { en: "Weather Farming Advice", ha: "Shawarar Noma ta Yanayi" },
+  savedLocations: { en: "Saved Locations", ha: "Wuraren da aka Ajiye" },
+  seasonTip: { en: "Season Tip", ha: "Shawarar Lokaci" },
 };
 
 export const t = (key: string, lang: Language): string => {

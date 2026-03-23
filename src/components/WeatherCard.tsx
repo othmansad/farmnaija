@@ -2,7 +2,26 @@ import { useEffect, useState } from "react";
 import { useApp } from "@/contexts/AppContext";
 import { t } from "@/data/translations";
 import { fetchWeather, getWeatherIcon, getWeatherDescription, type WeatherData } from "@/services/weather";
-import { Droplets, Wind, Thermometer } from "lucide-react";
+import { Droplets, Wind } from "lucide-react";
+
+const CACHE_KEY = "farmwise-weather-cache";
+const CACHE_TTL = 15 * 60 * 1000; // 15 minutes
+
+function getCachedWeather(lat: number, lon: number): WeatherData | null {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const { data, lat: cLat, lon: cLon, ts } = JSON.parse(raw);
+    if (cLat === lat && cLon === lon && Date.now() - ts < CACHE_TTL) return data;
+  } catch { /* ignore */ }
+  return null;
+}
+
+function setCachedWeather(lat: number, lon: number, data: WeatherData) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ data, lat, lon, ts: Date.now() }));
+  } catch { /* ignore */ }
+}
 
 export const useWeatherData = () => {
   const { lga } = useApp();
@@ -11,10 +30,26 @@ export const useWeatherData = () => {
 
   useEffect(() => {
     if (!lga) return;
-    setLoading(true);
+
+    // Try cache first
+    const cached = getCachedWeather(lga.lat, lga.lon);
+    if (cached) {
+      setWeather(cached);
+      setLoading(false);
+    }
+
+    // Fetch fresh data
+    setLoading(prev => cached ? false : true);
     fetchWeather(lga.lat, lga.lon)
-      .then(setWeather)
-      .catch(console.error)
+      .then(data => {
+        setWeather(data);
+        setCachedWeather(lga.lat, lga.lon, data);
+      })
+      .catch(err => {
+        console.error(err);
+        // If we had cache, keep showing it
+        if (!cached) setWeather(null);
+      })
       .finally(() => setLoading(false));
   }, [lga?.lat, lga?.lon]);
 
@@ -39,7 +74,6 @@ const WeatherCard = () => {
 
   return (
     <div className="space-y-3">
-      {/* Current weather */}
       <div className="card-farm">
         <h3 className="font-semibold mb-3 flex items-center gap-2">
           <span className="text-xl">{getWeatherIcon(current.weatherCode)}</span>
@@ -67,7 +101,6 @@ const WeatherCard = () => {
         </div>
       </div>
 
-      {/* 7-day forecast */}
       <div className="card-farm">
         <h3 className="font-semibold mb-3">{t("forecast", language)}</h3>
         <div className="flex gap-2 overflow-x-auto pb-1">

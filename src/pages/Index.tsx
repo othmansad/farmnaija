@@ -4,8 +4,10 @@ import { t } from "@/data/translations";
 import Header from "@/components/Header";
 import LocationSelector from "@/components/LocationSelector";
 import WeatherCard from "@/components/WeatherCard";
+import WeatherAdviceCard from "@/components/WeatherAdviceCard";
 import FarmingTip from "@/components/FarmingTip";
 import CropRecommendations from "@/components/CropRecommendations";
+import SavedLocationsCard from "@/components/SavedLocationsCard";
 import { MessageCircle } from "lucide-react";
 
 const Index = () => {
@@ -16,12 +18,13 @@ const Index = () => {
       <Header />
       <main className="flex-1 px-4 py-4 space-y-4 pb-24 max-w-lg mx-auto w-full">
         <LocationSelector />
+        <SavedLocationsCard />
+        <WeatherAdviceCard />
         <FarmingTip />
         <WeatherCard />
         <CropRecommendations />
       </main>
 
-      {/* Chat FAB */}
       <Link
         to="/chat"
         className="fixed bottom-6 right-6 bg-primary text-primary-foreground p-4 rounded-full shadow-lg active:scale-95 transition-transform z-50"
