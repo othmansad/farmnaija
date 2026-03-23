@@ -2,10 +2,13 @@ import { useState } from "react";
 import { useApp } from "@/contexts/AppContext";
 import { t } from "@/data/translations";
 import { states } from "@/data/locations";
-import { MapPin, ChevronDown } from "lucide-react";
+import { MapPin, ChevronDown, BookmarkPlus, Trash2 } from "lucide-react";
 
 const LocationSelector = () => {
-  const { language, stateId, setStateId, lga, setLga, stateName } = useApp();
+  const {
+    language, stateId, setStateId, lga, setLga, stateName,
+    savedLocations, saveCurrentLocation, removeSavedLocation, switchToLocation,
+  } = useApp();
   const [open, setOpen] = useState(false);
 
   const currentState = states[stateId];
@@ -26,8 +29,17 @@ const LocationSelector = () => {
         </button>
       </div>
 
-      <div className="text-sm text-muted-foreground">
-        📍 {lga?.name || "—"}, {stateName}
+      <div className="flex items-center justify-between">
+        <div className="text-sm text-muted-foreground">
+          📍 {lga?.name || "—"}, {stateName}
+        </div>
+        <button
+          onClick={saveCurrentLocation}
+          className="text-xs text-primary flex items-center gap-1"
+          title={language === "en" ? "Save location" : "Ajiye wuri"}
+        >
+          <BookmarkPlus className="w-4 h-4" />
+        </button>
       </div>
 
       {open && (
@@ -59,6 +71,39 @@ const LocationSelector = () => {
               ))}
             </select>
           </div>
+
+          {savedLocations.length > 0 && (
+            <div>
+              <label className="text-farm-label">
+                {language === "en" ? "Saved Locations" : "Wuraren da aka Ajiye"}
+              </label>
+              <div className="mt-1 space-y-1">
+                {savedLocations.map((loc, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center justify-between bg-muted/50 rounded-lg px-3 py-2 text-sm"
+                  >
+                    <button
+                      onClick={() => {
+                        switchToLocation(loc);
+                        setOpen(false);
+                      }}
+                      className="flex items-center gap-2 text-left flex-1"
+                    >
+                      <MapPin className="w-3 h-3 text-primary" />
+                      {loc.label}
+                    </button>
+                    <button
+                      onClick={() => removeSavedLocation(i)}
+                      className="text-destructive p-1"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

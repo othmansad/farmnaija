@@ -3,6 +3,7 @@ import { useApp } from "@/contexts/AppContext";
 import { t } from "@/data/translations";
 import { useWeatherData } from "@/components/WeatherCard";
 import { getWeatherSummary } from "@/services/weather";
+import { getCropDataSummary } from "@/data/farmingKnowledge";
 import { Send, ArrowLeft, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import ReactMarkdown from "react-markdown";
@@ -13,7 +14,7 @@ interface Message {
 }
 
 const ChatPage = () => {
-  const { language, stateName, lga } = useApp();
+  const { language, stateName, stateId, lga } = useApp();
   const { weather } = useWeatherData();
   const [messages, setMessages] = useState<Message[]>([
     { role: "assistant", content: t("welcomeMsg", language) },
@@ -38,6 +39,7 @@ const ChatPage = () => {
 
     try {
       const weatherSummary = weather ? getWeatherSummary(weather) : "Weather data unavailable";
+      const cropData = getCropDataSummary(stateId, language);
 
       const { data, error } = await supabase.functions.invoke("farm-chat", {
         body: {
@@ -45,6 +47,7 @@ const ChatPage = () => {
           state: stateName,
           lga: lga?.name || "",
           weather: weatherSummary,
+          cropData,
           language,
         },
       });
@@ -65,7 +68,6 @@ const ChatPage = () => {
 
   return (
     <div className="flex flex-col h-[calc(100vh-56px)]">
-      {/* Chat header */}
       <div className="bg-card border-b px-4 py-3 flex items-center gap-3">
         <a href="/" className="text-muted-foreground">
           <ArrowLeft className="w-5 h-5" />
@@ -79,7 +81,6 @@ const ChatPage = () => {
         </div>
       </div>
 
-      {/* Messages */}
       <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
         {messages.map((msg, i) => (
           <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
@@ -110,7 +111,6 @@ const ChatPage = () => {
         <div ref={bottomRef} />
       </div>
 
-      {/* Input */}
       <div className="border-t bg-card px-4 py-3">
         <div className="flex gap-2">
           <input
