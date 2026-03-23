@@ -1,0 +1,45 @@
+export type Language = "en" | "ha";
+
+const translations: Record<string, Record<Language, string>> = {
+  appName: { en: "FarmWise", ha: "FarmWise" },
+  dashboard: { en: "Dashboard", ha: "Babban Shafi" },
+  chat: { en: "Chat", ha: "Hira" },
+  weather: { en: "Weather", ha: "Yanayi" },
+  location: { en: "Location", ha: "Wuri" },
+  changeLocation: { en: "Change Location", ha: "Canja Wuri" },
+  selectState: { en: "Select State", ha: "Zaɓi Jiha" },
+  selectLGA: { en: "Select Area (LGA)", ha: "Zaɓi Yanki" },
+  tipOfTheDay: { en: "Tip of the Day", ha: "Shawara ta Yau" },
+  recommendedCrops: { en: "Recommended Crops", ha: "Amfanin Gona da ake ba da Shawara" },
+  currentWeather: { en: "Current Weather", ha: "Yanayin Yanzu" },
+  forecast: { en: "7-Day Forecast", ha: "Hasashen Kwana 7" },
+  askFarmer: { en: "Ask your farming question...", ha: "Tambayi tambayar noma..." },
+  send: { en: "Send", ha: "Aika" },
+  loading: { en: "Loading...", ha: "Ana lodi..." },
+  temperature: { en: "Temperature", ha: "Zafi" },
+  humidity: { en: "Humidity", ha: "Danshi" },
+  rain: { en: "Rain", ha: "Ruwan Sama" },
+  wind: { en: "Wind", ha: "Iska" },
+  noRain: { en: "No rain expected", ha: "Ba a sa ran ruwan sama ba" },
+  rainExpected: { en: "Rain expected", ha: "Ana sa ran ruwan sama" },
+  welcomeMsg: { en: "Hello! I'm your farming assistant. How can I help you today?", ha: "Sannu! Ni ne mataimakin noma. Yaya zan iya taimaka maka a yau?" },
+  english: { en: "English", ha: "Turanci" },
+  hausa: { en: "Hausa", ha: "Hausa" },
+  save: { en: "Save", ha: "Ajiye" },
+  cancel: { en: "Cancel", ha: "Soke" },
+  sunny: { en: "Sunny", ha: "Rana" },
+  cloudy: { en: "Cloudy", ha: "Girgije" },
+  rainy: { en: "Rainy", ha: "Ruwan sama" },
+  farmingAssistant: { en: "Farming Assistant", ha: "Mataimakin Noma" },
+  mon: { en: "Mon", ha: "Lit" },
+  tue: { en: "Tue", ha: "Tal" },
+  wed: { en: "Wed", ha: "Lar" },
+  thu: { en: "Thu", ha: "Alh" },
+  fri: { en: "Fri", ha: "Jum" },
+  sat: { en: "Sat", ha: "Ash" },
+  sun: { en: "Sun", ha: "Lah" },
+};
+
+export const t = (key: string, lang: Language): string => {
+  return translations[key]?.[lang] || key;
+};
