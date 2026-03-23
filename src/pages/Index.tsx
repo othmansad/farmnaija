@@ -1,16 +1,35 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Link } from "react-router-dom";
+import { useApp } from "@/contexts/AppContext";
+import { t } from "@/data/translations";
+import Header from "@/components/Header";
+import LocationSelector from "@/components/LocationSelector";
+import WeatherCard from "@/components/WeatherCard";
+import FarmingTip from "@/components/FarmingTip";
+import CropRecommendations from "@/components/CropRecommendations";
+import { MessageCircle } from "lucide-react";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
+  const { language } = useApp();
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <main className="flex-1 px-4 py-4 space-y-4 pb-24 max-w-lg mx-auto w-full">
+        <LocationSelector />
+        <FarmingTip />
+        <WeatherCard />
+        <CropRecommendations />
+      </main>
+
+      {/* Chat FAB */}
+      <Link
+        to="/chat"
+        className="fixed bottom-6 right-6 bg-primary text-primary-foreground p-4 rounded-full shadow-lg active:scale-95 transition-transform z-50"
+      >
+        <MessageCircle className="w-6 h-6" />
+      </Link>
     </div>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
