@@ -8,6 +8,7 @@ import WeatherAdviceCard from "@/components/WeatherAdviceCard";
 import FarmingTip from "@/components/FarmingTip";
 import CropRecommendations from "@/components/CropRecommendations";
 import SavedLocationsCard from "@/components/SavedLocationsCard";
+import AlertsCard from "@/components/AlertsCard";
 import { MessageCircle } from "lucide-react";
 
 const Index = () => {
@@ -18,6 +19,7 @@ const Index = () => {
       <Header />
       <main className="flex-1 px-4 py-4 space-y-4 pb-24 max-w-lg mx-auto w-full">
         <LocationSelector />
+        <AlertsCard />
         <SavedLocationsCard />
         <WeatherAdviceCard />
         <FarmingTip />

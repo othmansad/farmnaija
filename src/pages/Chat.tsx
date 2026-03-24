@@ -4,8 +4,10 @@ import { t } from "@/data/translations";
 import { useWeatherData } from "@/components/WeatherCard";
 import { getWeatherSummary } from "@/services/weather";
 import { getCropDataSummary } from "@/data/farmingKnowledge";
+import { getOfflineResponse } from "@/services/offlineChat";
 import { Send, ArrowLeft, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { VoiceInputButton, SpeakButton } from "@/components/VoiceButton";
 import ReactMarkdown from "react-markdown";
 
 interface Message {
@@ -21,7 +23,16 @@ const ChatPage = () => {
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isOffline, setIsOffline] = useState(!navigator.onLine);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const on = () => setIsOffline(false);
+    const off = () => setIsOffline(true);
+    window.addEventListener("online", on);
+    window.addEventListener("offline", off);
+    return () => { window.removeEventListener("online", on); window.removeEventListener("offline", off); };
+  }, []);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -36,6 +47,14 @@ const ChatPage = () => {
     setMessages(newMessages);
     setInput("");
     setLoading(true);
+
+    // If offline, use local knowledge base
+    if (!navigator.onLine) {
+      const reply = getOfflineResponse({ message: text, stateId, language });
+      setMessages([...newMessages, { role: "assistant", content: reply }]);
+      setLoading(false);
+      return;
+    }
 
     try {
       const weatherSummary = weather ? getWeatherSummary(weather) : "Weather data unavailable";
@@ -57,10 +76,9 @@ const ChatPage = () => {
       setMessages([...newMessages, { role: "assistant", content: data.reply }]);
     } catch (err) {
       console.error("Chat error:", err);
-      setMessages([
-        ...newMessages,
-        { role: "assistant", content: language === "en" ? "Sorry, I couldn't process your request. Please try again." : "Yi haƙuri, ban iya aiwatar da buƙatar ku ba. Da fatan za a sake gwadawa." },
-      ]);
+      // Fallback to offline response on network error
+      const reply = getOfflineResponse({ message: text, stateId, language });
+      setMessages([...newMessages, { role: "assistant", content: reply }]);
     } finally {
       setLoading(false);
     }
@@ -76,7 +94,10 @@ const ChatPage = () => {
           <span className="text-xl">🧑‍🌾</span>
           <div>
             <div className="font-semibold text-sm">{t("farmingAssistant", language)}</div>
-            <div className="text-xs text-muted-foreground">{lga?.name}, {stateName}</div>
+            <div className="text-xs text-muted-foreground">
+              {lga?.name}, {stateName}
+              {isOffline && <span className="ml-1 text-yellow-600">• Offline</span>}
+            </div>
           </div>
         </div>
       </div>
@@ -92,8 +113,11 @@ const ChatPage = () => {
               }`}
             >
               {msg.role === "assistant" ? (
-                <div className="prose prose-sm max-w-none">
-                  <ReactMarkdown>{msg.content}</ReactMarkdown>
+                <div>
+                  <div className="prose prose-sm max-w-none">
+                    <ReactMarkdown>{msg.content}</ReactMarkdown>
+                  </div>
+                  <SpeakButton text={msg.content} language={language} />
                 </div>
               ) : (
                 msg.content
@@ -113,6 +137,10 @@ const ChatPage = () => {
 
       <div className="border-t bg-card px-4 py-3">
         <div className="flex gap-2">
+          <VoiceInputButton
+            onTranscript={(text) => setInput(prev => prev ? prev + " " + text : text)}
+            language={language}
+          />
           <input
             type="text"
             value={input}
