@@ -1,6 +1,7 @@
 import { useApp } from "@/contexts/AppContext";
 import { t } from "@/data/translations";
-import { MapPin, Globe } from "lucide-react";
+import { MapPin, Globe, Settings } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const { language, setLanguage, stateName, lga } = useApp();
@@ -24,6 +25,9 @@ const Header = () => {
           <Globe className="w-3 h-3" />
           {language === "en" ? "HA" : "EN"}
         </button>
+        <Link to="/admin" className="text-primary-foreground/60 hover:text-primary-foreground">
+          <Settings className="w-4 h-4" />
+        </Link>
       </div>
     </header>
   );
