@@ -8,6 +8,7 @@ import { getOfflineResponse } from "@/services/offlineChat";
 import { Send, ArrowLeft, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { VoiceInputButton, SpeakButton } from "@/components/VoiceButton";
+import { trackEvent } from "@/services/analytics";
 import ReactMarkdown from "react-markdown";
 
 interface Message {
@@ -46,6 +47,7 @@ const ChatPage = () => {
     const newMessages = [...messages, userMsg];
     setMessages(newMessages);
     setInput("");
+    trackEvent("chat_message", text.substring(0, 50));
     setLoading(true);
 
     // If offline, use local knowledge base
