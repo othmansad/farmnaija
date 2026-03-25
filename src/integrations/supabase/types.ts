@@ -14,7 +14,93 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      analytics_events: {
+        Row: {
+          created_at: string
+          device_id: string
+          event_type: string
+          event_value: string
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          device_id?: string
+          event_type: string
+          event_value?: string
+          id?: string
+        }
+        Update: {
+          created_at?: string
+          device_id?: string
+          event_type?: string
+          event_value?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      farm_alerts: {
+        Row: {
+          active: boolean
+          alert_type: string
+          created_at: string
+          id: string
+          message_en: string
+          message_ha: string
+          state_id: string
+          title_en: string
+          title_ha: string
+        }
+        Insert: {
+          active?: boolean
+          alert_type?: string
+          created_at?: string
+          id?: string
+          message_en?: string
+          message_ha?: string
+          state_id?: string
+          title_en: string
+          title_ha?: string
+        }
+        Update: {
+          active?: boolean
+          alert_type?: string
+          created_at?: string
+          id?: string
+          message_en?: string
+          message_ha?: string
+          state_id?: string
+          title_en?: string
+          title_ha?: string
+        }
+        Relationships: []
+      }
+      season_tips: {
+        Row: {
+          created_at: string
+          id: string
+          month: number
+          state_id: string
+          tip_en: string
+          tip_ha: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          month: number
+          state_id?: string
+          tip_en: string
+          tip_ha?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          month?: number
+          state_id?: string
+          tip_en?: string
+          tip_ha?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
