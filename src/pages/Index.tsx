@@ -10,9 +10,19 @@ import CropRecommendations from "@/components/CropRecommendations";
 import SavedLocationsCard from "@/components/SavedLocationsCard";
 import AlertsCard from "@/components/AlertsCard";
 import { MessageCircle } from "lucide-react";
+import { useEffect } from "react";
+import { trackEvent } from "@/services/analytics";
 
 const Index = () => {
-  const { language } = useApp();
+  const { language, stateId } = useApp();
+
+  useEffect(() => {
+    trackEvent("page_view", "dashboard");
+  }, []);
+
+  useEffect(() => {
+    trackEvent("state_select", stateId);
+  }, [stateId]);
 
   return (
     <div className="min-h-screen flex flex-col">
