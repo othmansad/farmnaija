@@ -25,24 +25,26 @@ const Index = () => {
   }, [stateId]);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <Header />
-      <main className="flex-1 px-4 py-4 space-y-4 pb-24 max-w-lg mx-auto w-full">
-        <LocationSelector />
+      <main className="flex-1 px-4 py-5 space-y-4 pb-28 max-w-lg mx-auto w-full">
         <AlertsCard />
-        <SavedLocationsCard />
+        <LocationSelector />
         <WeatherAdviceCard />
         <FarmingTip />
         <WeatherCard />
         <CropRecommendations />
+        <SavedLocationsCard />
       </main>
 
       <Link
         to="/chat"
-        className="fixed bottom-6 right-6 bg-primary text-primary-foreground rounded-full shadow-lg active:scale-95 transition-transform z-50 flex items-center gap-2 px-5 py-3"
+        className="fixed bottom-6 right-5 left-5 max-w-sm mx-auto gradient-header text-primary-foreground rounded-2xl shadow-xl active:scale-[0.98] transition-transform z-50 flex items-center justify-center gap-2.5 py-4"
       >
         <Bot className="w-5 h-5" />
-        <span className="text-sm font-semibold">{t("farmingAssistant", language)}</span>
+        <span className="text-sm font-extrabold tracking-wide">
+          {language === "en" ? "🧑‍🌾 Ask Your Farming Assistant" : "🧑‍🌾 Tambayi Mai Ba da Shawara"}
+        </span>
       </Link>
     </div>
   );

@@ -1,45 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 40 33% 96%;
-    --foreground: 25 30% 12%;
+    --background: 45 40% 97%;
+    --foreground: 25 35% 15%;
 
-    --card: 40 30% 98%;
-    --card-foreground: 25 30% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 25 35% 15%;
 
-    --popover: 40 30% 98%;
-    --popover-foreground: 25 30% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 25 35% 15%;
 
-    --primary: 142 40% 30%;
-    --primary-foreground: 40 33% 96%;
+    --primary: 145 45% 28%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 30 35% 45%;
-    --secondary-foreground: 40 33% 96%;
+    --secondary: 28 45% 42%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 40 20% 90%;
+    --muted: 40 25% 92%;
     --muted-foreground: 25 15% 45%;
 
-    --accent: 85 35% 50%;
-    --accent-foreground: 25 30% 12%;
+    --accent: 88 40% 48%;
+    --accent-foreground: 25 35% 15%;
 
     --destructive: 0 72% 50%;
-    --destructive-foreground: 40 33% 96%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 35 20% 82%;
-    --input: 35 20% 82%;
-    --ring: 142 40% 30%;
+    --border: 35 22% 85%;
+    --input: 35 22% 85%;
+    --ring: 145 45% 28%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    --earth: 25 40% 30%;
-    --earth-foreground: 40 33% 96%;
-    --harvest: 42 85% 55%;
-    --harvest-foreground: 25 30% 12%;
-    --soil: 20 25% 22%;
-    --leaf: 100 35% 42%;
+    --earth: 25 45% 28%;
+    --earth-foreground: 0 0% 100%;
+    --harvest: 40 90% 52%;
+    --harvest-foreground: 25 40% 15%;
+    --soil: 20 30% 20%;
+    --leaf: 100 40% 40%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -49,6 +51,11 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --gradient-sun: linear-gradient(135deg, hsl(40, 90%, 52%), hsl(25, 85%, 55%));
+    --gradient-green: linear-gradient(135deg, hsl(145, 45%, 28%), hsl(100, 40%, 40%));
+    --shadow-card: 0 2px 12px -2px hsl(25 35% 15% / 0.06);
+    --shadow-card-hover: 0 4px 20px -4px hsl(25 35% 15% / 0.1);
   }
 }
 
@@ -58,19 +65,26 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 }
 
 @layer utilities {
   .card-farm {
-    @apply bg-card rounded-xl border p-4 shadow-sm;
+    @apply bg-card rounded-2xl border p-4 transition-shadow duration-200;
+    box-shadow: var(--shadow-card);
+  }
+  .card-farm:hover {
+    box-shadow: var(--shadow-card-hover);
   }
   .btn-farm {
-    @apply bg-primary text-primary-foreground rounded-xl px-6 py-3 text-base font-medium active:scale-95 transition-transform;
+    @apply bg-primary text-primary-foreground rounded-2xl px-6 py-3 text-base font-bold active:scale-95 transition-transform;
   }
   .text-farm-label {
-    @apply text-sm font-medium text-muted-foreground;
+    @apply text-sm font-semibold text-muted-foreground uppercase tracking-wide;
+  }
+  .gradient-header {
+    background: linear-gradient(135deg, hsl(145, 45%, 28%) 0%, hsl(145, 40%, 22%) 50%, hsl(100, 35%, 30%) 100%);
   }
 }
