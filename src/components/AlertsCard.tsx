@@ -11,11 +11,18 @@ const alertIcons: Record<string, typeof AlertTriangle> = {
   general: Info,
 };
 
+const alertEmojis: Record<string, string> = {
+  pest: "🐛",
+  weather: "⛈️",
+  season: "🌱",
+  general: "📢",
+};
+
 const alertColors: Record<string, string> = {
   pest: "border-l-destructive bg-destructive/5",
-  weather: "border-l-yellow-500 bg-yellow-500/5",
+  weather: "border-l-harvest bg-harvest/5",
   season: "border-l-primary bg-primary/5",
-  general: "border-l-muted-foreground bg-muted/50",
+  general: "border-l-muted-foreground bg-muted/30",
 };
 
 const CACHE_KEY = "farmwise-alerts-cache";
@@ -25,14 +32,12 @@ const AlertsCard = () => {
   const [alerts, setAlerts] = useState<FarmAlert[]>([]);
 
   useEffect(() => {
-    // Load cached first
     try {
       const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "[]");
       const filtered = cached.filter((a: FarmAlert) => a.state_id === stateId || a.state_id === "all");
       if (filtered.length > 0) setAlerts(filtered);
     } catch { /* ignore */ }
 
-    // Fetch fresh
     fetchAlertsForState(stateId).then(data => {
       setAlerts(data);
       localStorage.setItem(CACHE_KEY, JSON.stringify(data));
@@ -46,15 +51,16 @@ const AlertsCard = () => {
     <div className="space-y-2">
       {alerts.map(alert => {
         const Icon = alertIcons[alert.alert_type] || Info;
+        const emoji = alertEmojis[alert.alert_type] || "📢";
         return (
           <div key={alert.id} className={`card-farm border-l-4 ${alertColors[alert.alert_type] || alertColors.general}`}>
             <div className="flex items-start gap-3">
-              <Icon className="w-5 h-5 mt-0.5 flex-shrink-0" />
+              <div className="text-lg flex-shrink-0 mt-0.5">{emoji}</div>
               <div>
-                <h4 className="font-semibold text-sm">
+                <h4 className="font-bold text-sm">
                   {language === "ha" && alert.title_ha ? alert.title_ha : alert.title_en}
                 </h4>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   {language === "ha" && alert.message_ha ? alert.message_ha : alert.message_en}
                 </p>
               </div>

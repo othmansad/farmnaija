@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useApp } from "@/contexts/AppContext";
 import { t } from "@/data/translations";
 import { fetchWeather, getWeatherIcon, getWeatherDescription, type WeatherData } from "@/services/weather";
-import { Droplets, Wind } from "lucide-react";
+import { Droplets, Wind, Thermometer } from "lucide-react";
 
 const CACHE_KEY = "farmwise-weather-cache";
-const CACHE_TTL = 15 * 60 * 1000; // 15 minutes
+const CACHE_TTL = 15 * 60 * 1000;
 
 function getCachedWeather(lat: number, lon: number): WeatherData | null {
   try {
@@ -30,15 +30,11 @@ export const useWeatherData = () => {
 
   useEffect(() => {
     if (!lga) return;
-
-    // Try cache first
     const cached = getCachedWeather(lga.lat, lga.lon);
     if (cached) {
       setWeather(cached);
       setLoading(false);
     }
-
-    // Fetch fresh data
     setLoading(prev => cached ? false : true);
     fetchWeather(lga.lat, lga.lon)
       .then(data => {
@@ -47,7 +43,6 @@ export const useWeatherData = () => {
       })
       .catch(err => {
         console.error(err);
-        // If we had cache, keep showing it
         if (!cached) setWeather(null);
       })
       .finally(() => setLoading(false));
@@ -63,7 +58,7 @@ const WeatherCard = () => {
   if (loading) {
     return (
       <div className="card-farm animate-pulse-slow">
-        <div className="h-20 bg-muted rounded-lg" />
+        <div className="h-24 bg-muted rounded-xl" />
       </div>
     );
   }
@@ -74,41 +69,44 @@ const WeatherCard = () => {
 
   return (
     <div className="space-y-3">
-      <div className="card-farm">
-        <h3 className="font-semibold mb-3 flex items-center gap-2">
+      <div className="card-farm relative overflow-hidden">
+        <div className="absolute -top-4 -right-4 text-6xl opacity-20">
+          {getWeatherIcon(current.weatherCode)}
+        </div>
+        <h3 className="font-bold mb-3 flex items-center gap-2">
           <span className="text-xl">{getWeatherIcon(current.weatherCode)}</span>
           {t("currentWeather", language)}
         </h3>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between relative">
           <div>
-            <div className="text-3xl font-bold">{current.temperature}°C</div>
-            <div className="text-sm text-muted-foreground">{getWeatherDescription(current.weatherCode)}</div>
+            <div className="text-4xl font-extrabold text-foreground">{current.temperature}°C</div>
+            <div className="text-sm text-muted-foreground font-medium mt-0.5">{getWeatherDescription(current.weatherCode)}</div>
           </div>
-          <div className="space-y-1 text-sm">
-            <div className="flex items-center gap-1 text-muted-foreground">
-              <Droplets className="w-4 h-4" />
-              {current.humidity}%
+          <div className="space-y-2 text-sm">
+            <div className="flex items-center gap-1.5 text-muted-foreground">
+              <Droplets className="w-4 h-4 text-blue-500" />
+              <span className="font-semibold">{current.humidity}%</span>
             </div>
-            <div className="flex items-center gap-1 text-muted-foreground">
-              <Wind className="w-4 h-4" />
-              {current.windSpeed} km/h
+            <div className="flex items-center gap-1.5 text-muted-foreground">
+              <Wind className="w-4 h-4 text-slate-500" />
+              <span className="font-semibold">{current.windSpeed} km/h</span>
             </div>
-            <div className="flex items-center gap-1 text-muted-foreground">
+            <div className="flex items-center gap-1.5 text-muted-foreground">
               <span>🌧️</span>
-              {current.precipitation > 0 ? t("rainExpected", language) : t("noRain", language)}
+              <span className="font-semibold">{current.precipitation > 0 ? t("rainExpected", language) : t("noRain", language)}</span>
             </div>
           </div>
         </div>
       </div>
 
       <div className="card-farm">
-        <h3 className="font-semibold mb-3">{t("forecast", language)}</h3>
-        <div className="flex gap-2 overflow-x-auto pb-1">
+        <h3 className="font-bold mb-3">{t("forecast", language)}</h3>
+        <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">
           {weather.forecast.map((day, i) => (
-            <div key={day.date} className={`flex-shrink-0 text-center p-2 rounded-lg ${i === 0 ? "bg-primary/10" : "bg-muted/50"}`} style={{ minWidth: 56 }}>
-              <div className="text-xs text-muted-foreground">{t(day.dayName.toLowerCase(), language) || day.dayName}</div>
+            <div key={day.date} className={`flex-shrink-0 text-center p-2.5 rounded-xl transition-colors ${i === 0 ? "bg-primary/10 ring-1 ring-primary/20" : "bg-muted/50"}`} style={{ minWidth: 60 }}>
+              <div className="text-xs text-muted-foreground font-semibold">{t(day.dayName.toLowerCase(), language) || day.dayName}</div>
               <div className="text-lg my-1">{getWeatherIcon(day.weatherCode)}</div>
-              <div className="text-xs font-medium">{day.tempMax}°</div>
+              <div className="text-xs font-bold">{day.tempMax}°</div>
               <div className="text-xs text-muted-foreground">{day.tempMin}°</div>
             </div>
           ))}
