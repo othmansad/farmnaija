@@ -86,38 +86,38 @@ const ChatPage = () => {
   return (
     <div className="flex flex-col h-screen bg-background">
       {/* Header */}
-      <div className="gradient-header px-4 py-3.5 flex items-center gap-3 shadow-lg">
-        <a href="/" className="text-primary-foreground/80 hover:text-primary-foreground p-1 -ml-1 active:scale-95 transition-transform">
+      <div className="gradient-header px-5 py-4 flex items-center gap-3.5 shadow-lg">
+        <a href="/" className="text-primary-foreground/80 hover:text-primary-foreground p-1.5 -ml-1 active:scale-95 transition-all duration-200">
           <ArrowLeft className="w-5 h-5" />
         </a>
-        <div className="flex items-center gap-2.5">
-          <div className="bg-primary-foreground/20 backdrop-blur-sm p-2 rounded-xl">
-            <span className="text-xl">🧑‍🌾</span>
+        <div className="flex items-center gap-3">
+          <div className="bg-primary-foreground/15 backdrop-blur-sm p-2.5 rounded-2xl">
+            <span className="text-2xl">🧑‍🌾</span>
           </div>
           <div>
-            <div className="font-bold text-sm text-primary-foreground">{t("farmingAssistant", language)}</div>
-            <div className="text-xs text-primary-foreground/70 flex items-center gap-1">
+            <div className="font-extrabold text-sm text-primary-foreground tracking-tight">{t("farmingAssistant", language)}</div>
+            <div className="text-xs text-primary-foreground/65 flex items-center gap-1.5 font-semibold">
               📍 {lga?.name}, {stateName}
-              {isOffline && <span className="ml-1 bg-harvest/30 text-harvest-foreground px-1.5 py-0.5 rounded-full text-[10px] font-bold">Offline</span>}
+              {isOffline && <span className="ml-1 bg-harvest/30 text-harvest-foreground px-2 py-0.5 rounded-full text-[10px] font-extrabold">Offline</span>}
             </div>
           </div>
         </div>
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+      <div className="flex-1 overflow-y-auto px-4 py-5 space-y-3.5">
         {messages.map((msg, i) => (
-          <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+          <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"} animate-fade-up`}>
             <div
-              className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
+              className={`max-w-[85%] rounded-2xl px-4 py-3.5 text-sm leading-relaxed ${
                 msg.role === "user"
-                  ? "gradient-header text-primary-foreground rounded-br-md shadow-md"
-                  : "bg-card text-foreground rounded-bl-md shadow-sm border"
+                  ? "gradient-header text-primary-foreground rounded-br-lg shadow-md font-semibold"
+                  : "bg-card text-foreground rounded-bl-lg shadow-sm border"
               }`}
             >
               {msg.role === "assistant" ? (
                 <div>
-                  <div className="prose prose-sm max-w-none">
+                  <div className="prose prose-sm max-w-none font-medium">
                     <ReactMarkdown>{msg.content}</ReactMarkdown>
                   </div>
                   <SpeakButton text={msg.content} language={language} />
@@ -129,11 +129,11 @@ const ChatPage = () => {
           </div>
         ))}
         {loading && (
-          <div className="flex justify-start">
-            <div className="bg-card border rounded-2xl rounded-bl-md px-4 py-3 shadow-sm">
-              <div className="flex items-center gap-2">
+          <div className="flex justify-start animate-fade-up">
+            <div className="bg-card border rounded-2xl rounded-bl-lg px-4 py-3.5 shadow-sm">
+              <div className="flex items-center gap-2.5">
                 <Loader2 className="w-4 h-4 animate-spin text-primary" />
-                <span className="text-xs text-muted-foreground font-semibold">
+                <span className="text-xs text-muted-foreground font-bold">
                   {language === "en" ? "Thinking..." : "Ina tunani..."}
                 </span>
               </div>
@@ -144,8 +144,8 @@ const ChatPage = () => {
       </div>
 
       {/* Input */}
-      <div className="border-t bg-card px-4 py-3 shadow-[0_-2px_10px_-2px_hsl(25_35%_15%/0.06)]">
-        <div className="flex gap-2 items-end">
+      <div className="border-t bg-card px-4 py-3.5" style={{ boxShadow: "0 -4px 16px -4px hsl(20 40% 12% / 0.06)" }}>
+        <div className="flex gap-2.5 items-end">
           <VoiceInputButton
             onTranscript={(text) => setInput(prev => prev ? prev + " " + text : text)}
             language={language}
@@ -156,12 +156,12 @@ const ChatPage = () => {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
             placeholder={t("askFarmer", language)}
-            className="flex-1 bg-muted rounded-2xl px-4 py-3 text-sm font-semibold outline-none focus:ring-2 focus:ring-primary/30 placeholder:font-normal placeholder:text-muted-foreground"
+            className="flex-1 bg-muted rounded-2xl px-4 py-3.5 text-sm font-semibold outline-none focus:ring-2 focus:ring-primary/30 placeholder:font-medium placeholder:text-muted-foreground transition-all duration-200"
           />
           <button
             onClick={sendMessage}
             disabled={loading || !input.trim()}
-            className="gradient-header text-primary-foreground p-3 rounded-2xl disabled:opacity-40 active:scale-95 transition-transform shadow-md"
+            className="gradient-header text-primary-foreground p-3.5 rounded-2xl disabled:opacity-40 active:scale-95 transition-all duration-200 shadow-md"
           >
             <Send className="w-5 h-5" />
           </button>

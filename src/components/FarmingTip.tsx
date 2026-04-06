@@ -29,15 +29,16 @@ const FarmingTip = () => {
   const tip = tips[language][dayIndex];
 
   return (
-    <div className="card-farm relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-20 h-20 rounded-full bg-harvest/10 -translate-y-6 translate-x-6" />
-      <div className="flex items-start gap-3 relative">
-        <div className="bg-harvest/20 p-2.5 rounded-xl flex-shrink-0">
+    <div className="card-farm relative overflow-hidden border-l-4 border-l-harvest">
+      <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-harvest/8" />
+      <div className="absolute bottom-0 right-8 w-12 h-12 rounded-full bg-harvest/5" />
+      <div className="flex items-start gap-3.5 relative">
+        <div className="icon-badge bg-harvest/15">
           <Lightbulb className="w-5 h-5 text-harvest" />
         </div>
         <div>
-          <h3 className="font-bold text-sm mb-1">💡 {t("tipOfTheDay", language)}</h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">{tip}</p>
+          <h3 className="font-extrabold text-sm mb-1.5">💡 {t("tipOfTheDay", language)}</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed font-medium">{tip}</p>
         </div>
       </div>
     </div>

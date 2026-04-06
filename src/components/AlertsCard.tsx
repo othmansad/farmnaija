@@ -22,7 +22,7 @@ const alertColors: Record<string, string> = {
   pest: "border-l-destructive bg-destructive/5",
   weather: "border-l-harvest bg-harvest/5",
   season: "border-l-primary bg-primary/5",
-  general: "border-l-muted-foreground bg-muted/30",
+  general: "border-l-muted-foreground bg-muted/20",
 };
 
 const CACHE_KEY = "farmwise-alerts-cache";
@@ -48,19 +48,18 @@ const AlertsCard = () => {
   if (alerts.length === 0) return null;
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2.5">
       {alerts.map(alert => {
-        const Icon = alertIcons[alert.alert_type] || Info;
         const emoji = alertEmojis[alert.alert_type] || "📢";
         return (
           <div key={alert.id} className={`card-farm border-l-4 ${alertColors[alert.alert_type] || alertColors.general}`}>
-            <div className="flex items-start gap-3">
-              <div className="text-lg flex-shrink-0 mt-0.5">{emoji}</div>
+            <div className="flex items-start gap-3.5">
+              <div className="text-xl flex-shrink-0 mt-0.5">{emoji}</div>
               <div>
-                <h4 className="font-bold text-sm">
+                <h4 className="font-extrabold text-sm">
                   {language === "ha" && alert.title_ha ? alert.title_ha : alert.title_en}
                 </h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground leading-relaxed font-medium mt-0.5">
                   {language === "ha" && alert.message_ha ? alert.message_ha : alert.message_en}
                 </p>
               </div>
