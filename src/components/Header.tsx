@@ -1,7 +1,7 @@
 import { useApp } from "@/contexts/AppContext";
 import { t } from "@/data/translations";
-import { MapPin, Globe, Settings } from "lucide-react";
-import { Link } from "react-router-dom";
+import { MapPin, Globe } from "lucide-react";
+import SettingsSheet from "@/components/SettingsSheet";
 
 const getGreeting = (language: "en" | "ha") => {
   const hour = new Date().getHours();
