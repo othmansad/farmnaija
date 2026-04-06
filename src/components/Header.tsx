@@ -1,7 +1,7 @@
 import { useApp } from "@/contexts/AppContext";
 import { t } from "@/data/translations";
-import { MapPin, Globe, Settings } from "lucide-react";
-import { Link } from "react-router-dom";
+import { MapPin, Globe } from "lucide-react";
+import SettingsSheet from "@/components/SettingsSheet";
 
 const getGreeting = (language: "en" | "ha") => {
   const hour = new Date().getHours();
@@ -33,9 +33,7 @@ const Header = () => {
             <Globe className="w-3.5 h-3.5" />
             {language === "en" ? "HA" : "EN"}
           </button>
-          <Link to="/admin" className="text-primary-foreground/60 hover:text-primary-foreground p-1.5 transition-colors duration-200">
-            <Settings className="w-4.5 h-4.5" />
-          </Link>
+          <SettingsSheet />
         </div>
       </div>
       <div className="text-primary-foreground font-extrabold text-lg tracking-tight">
