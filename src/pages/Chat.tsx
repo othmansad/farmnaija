@@ -86,7 +86,7 @@ const ChatPage = () => {
   return (
     <div className="flex flex-col h-screen bg-background">
       {/* Header */}
-      <div className="gradient-header px-5 py-4 flex items-center gap-3.5 shadow-lg">
+      <div className="gradient-header px-4 sm:px-6 py-4 flex items-center gap-3.5 shadow-lg">
         <a href="/" className="text-primary-foreground/80 hover:text-primary-foreground p-1.5 -ml-1 active:scale-95 transition-all duration-200">
           <ArrowLeft className="w-5 h-5" />
         </a>
@@ -104,67 +104,71 @@ const ChatPage = () => {
         </div>
       </div>
 
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 py-5 space-y-3.5">
-        {messages.map((msg, i) => (
-          <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"} animate-fade-up`}>
-            <div
-              className={`max-w-[85%] rounded-2xl px-4 py-3.5 text-sm leading-relaxed ${
-                msg.role === "user"
-                  ? "gradient-header text-primary-foreground rounded-br-lg shadow-md font-semibold"
-                  : "bg-card text-foreground rounded-bl-lg shadow-sm border"
-              }`}
-            >
-              {msg.role === "assistant" ? (
-                <div>
-                  <div className="prose prose-sm max-w-none font-medium">
-                    <ReactMarkdown>{msg.content}</ReactMarkdown>
+      {/* Messages — centered container on desktop */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 py-5 space-y-3.5">
+          {messages.map((msg, i) => (
+            <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"} animate-fade-up`}>
+              <div
+                className={`max-w-[85%] sm:max-w-[75%] rounded-2xl px-4 py-3.5 text-sm leading-relaxed ${
+                  msg.role === "user"
+                    ? "gradient-header text-primary-foreground rounded-br-lg shadow-md font-semibold"
+                    : "bg-card text-foreground rounded-bl-lg shadow-sm border"
+                }`}
+              >
+                {msg.role === "assistant" ? (
+                  <div>
+                    <div className="prose prose-sm max-w-none font-medium dark:prose-invert">
+                      <ReactMarkdown>{msg.content}</ReactMarkdown>
+                    </div>
+                    <SpeakButton text={msg.content} language={language} />
                   </div>
-                  <SpeakButton text={msg.content} language={language} />
-                </div>
-              ) : (
-                msg.content
-              )}
-            </div>
-          </div>
-        ))}
-        {loading && (
-          <div className="flex justify-start animate-fade-up">
-            <div className="bg-card border rounded-2xl rounded-bl-lg px-4 py-3.5 shadow-sm">
-              <div className="flex items-center gap-2.5">
-                <Loader2 className="w-4 h-4 animate-spin text-primary" />
-                <span className="text-xs text-muted-foreground font-bold">
-                  {language === "en" ? "Thinking..." : "Ina tunani..."}
-                </span>
+                ) : (
+                  msg.content
+                )}
               </div>
             </div>
-          </div>
-        )}
-        <div ref={bottomRef} />
+          ))}
+          {loading && (
+            <div className="flex justify-start animate-fade-up">
+              <div className="bg-card border rounded-2xl rounded-bl-lg px-4 py-3.5 shadow-sm">
+                <div className="flex items-center gap-2.5">
+                  <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                  <span className="text-xs text-muted-foreground font-bold">
+                    {language === "en" ? "Thinking..." : "Ina tunani..."}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+          <div ref={bottomRef} />
+        </div>
       </div>
 
-      {/* Input */}
-      <div className="border-t bg-card px-4 py-3.5" style={{ boxShadow: "0 -4px 16px -4px hsl(20 40% 12% / 0.06)" }}>
-        <div className="flex gap-2.5 items-end">
-          <VoiceInputButton
-            onTranscript={(text) => setInput(prev => prev ? prev + " " + text : text)}
-            language={language}
-          />
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-            placeholder={t("askFarmer", language)}
-            className="flex-1 bg-muted rounded-2xl px-4 py-3.5 text-sm font-semibold outline-none focus:ring-2 focus:ring-primary/30 placeholder:font-medium placeholder:text-muted-foreground transition-all duration-200"
-          />
-          <button
-            onClick={sendMessage}
-            disabled={loading || !input.trim()}
-            className="gradient-header text-primary-foreground p-3.5 rounded-2xl disabled:opacity-40 active:scale-95 transition-all duration-200 shadow-md"
-          >
-            <Send className="w-5 h-5" />
-          </button>
+      {/* Input — centered on desktop */}
+      <div className="border-t bg-card" style={{ boxShadow: "0 -4px 16px -4px hsl(20 40% 12% / 0.06)" }}>
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 py-3.5">
+          <div className="flex gap-2.5 items-end">
+            <VoiceInputButton
+              onTranscript={(text) => setInput(prev => prev ? prev + " " + text : text)}
+              language={language}
+            />
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+              placeholder={t("askFarmer", language)}
+              className="flex-1 bg-muted rounded-2xl px-4 py-3.5 text-sm font-semibold outline-none focus:ring-2 focus:ring-primary/30 placeholder:font-medium placeholder:text-muted-foreground transition-all duration-200"
+            />
+            <button
+              onClick={sendMessage}
+              disabled={loading || !input.trim()}
+              className="gradient-header text-primary-foreground p-3.5 rounded-2xl disabled:opacity-40 active:scale-95 transition-all duration-200 shadow-md"
+            >
+              <Send className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
