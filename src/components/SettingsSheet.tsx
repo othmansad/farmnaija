@@ -8,14 +8,26 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Settings, Globe, MapPin, Shield, ChevronRight } from "lucide-react";
+import { Settings, Globe, MapPin, Shield, ChevronRight, Moon, Sun } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const SettingsSheet = () => {
   const { language, setLanguage, stateId, setStateId, lga, setLga, stateName } = useApp();
   const [open, setOpen] = useState(false);
+  const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains("dark"));
   const currentState = states[stateId];
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("farmwise-theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("farmwise-theme", "light");
+    }
+  }, [isDark]);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -90,6 +102,24 @@ const SettingsSheet = () => {
                 <option key={l.name} value={l.name}>{l.name}</option>
               ))}
             </select>
+          </div>
+
+          {/* Dark Mode */}
+          <div className="flex items-center justify-between bg-muted/50 rounded-2xl px-4 py-3.5">
+            <div className="flex items-center gap-3">
+              <div className="bg-accent/10 p-2 rounded-xl">
+                {isDark ? <Moon className="w-4 h-4 text-accent" /> : <Sun className="w-4 h-4 text-accent" />}
+              </div>
+              <div>
+                <div className="text-sm font-extrabold">
+                  {language === "en" ? "Dark Mode" : "Yanayin Duhu"}
+                </div>
+                <div className="text-xs text-muted-foreground font-medium">
+                  {language === "en" ? "Easier on the eyes" : "Sauƙin gani"}
+                </div>
+              </div>
+            </div>
+            <Switch checked={isDark} onCheckedChange={setIsDark} />
           </div>
 
           {/* Divider */}
