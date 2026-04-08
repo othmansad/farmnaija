@@ -27,11 +27,11 @@ import {
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const features = [
-  { title: "Farm Planner", titleHa: "Tsarin Noma", url: "/planner", icon: CalendarDays, color: "text-primary", bg: "bg-primary/10", desc: "Plan your farming season", descHa: "Tsara lokacin noma" },
-  { title: "Analytics", titleHa: "Nazari", url: "/analytics", icon: BarChart3, color: "text-accent", bg: "bg-accent/10", desc: "Track crop & weather data", descHa: "Bibiyar bayanai" },
-  { title: "Learn", titleHa: "Koyi", url: "/learn", icon: BookOpen, color: "text-secondary", bg: "bg-secondary/10", desc: "Farming guides & tips", descHa: "Jagororin noma" },
-  { title: "Community", titleHa: "Al'umma", url: "/community", icon: Users, color: "text-harvest", bg: "bg-harvest/10", desc: "Connect with farmers", descHa: "Haɗa kai da manoma" },
-  { title: "News", titleHa: "Labarai", url: "/news", icon: Newspaper, color: "text-earth", bg: "bg-earth/10", desc: "Agricultural updates", descHa: "Sabuntawar noma" },
+  { title: "Farm Planner", titleHa: "Tsarin Noma", url: "/planner", icon: CalendarDays, color: "text-primary", bg: "bg-primary/10", borderColor: "border-primary/20", desc: "Plan your farming season", descHa: "Tsara lokacin noma", emoji: "📅" },
+  { title: "Analytics", titleHa: "Nazari", url: "/analytics", icon: BarChart3, color: "text-accent", bg: "bg-accent/10", borderColor: "border-accent/20", desc: "Track crop & weather data", descHa: "Bibiyar bayanai", emoji: "📊" },
+  { title: "Learn", titleHa: "Koyi", url: "/learn", icon: BookOpen, color: "text-secondary", bg: "bg-secondary/10", borderColor: "border-secondary/20", desc: "Farming guides & tips", descHa: "Jagororin noma", emoji: "📚" },
+  { title: "Community", titleHa: "Al'umma", url: "/community", icon: Users, color: "text-harvest", bg: "bg-harvest/10", borderColor: "border-harvest/20", desc: "Connect with farmers", descHa: "Haɗa kai da manoma", emoji: "👥" },
+  { title: "News", titleHa: "Labarai", url: "/news", icon: Newspaper, color: "text-earth", bg: "bg-earth/10", borderColor: "border-earth/20", desc: "Agricultural updates", descHa: "Sabuntawar noma", emoji: "📰" },
 ];
 
 export function AppSidebar() {
@@ -89,20 +89,20 @@ export function AppSidebar() {
                     <NavLink
                       to={item.url}
                       end
-                      className="flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 hover:bg-muted/60"
-                      activeClassName="bg-primary/10 text-primary font-extrabold"
+                      className={`flex items-center gap-3 px-3 py-3.5 rounded-2xl transition-all duration-200 hover:bg-muted/60 border border-transparent hover:border-border/50 hover:shadow-sm`}
+                      activeClassName={`${item.bg} ${item.borderColor} border font-extrabold shadow-sm`}
                     >
-                      <div className={`${item.bg} p-2 rounded-xl flex-shrink-0`}>
-                        <item.icon className={`w-4 h-4 ${item.color}`} />
+                      <div className={`${item.bg} p-2.5 rounded-xl flex-shrink-0 shadow-sm`}>
+                        <item.icon className={`w-5 h-5 ${item.color}`} />
                       </div>
                       {!collapsed && (
                         <div className="flex-1 min-w-0">
-                          <div className="text-sm font-bold truncate">{label}</div>
-                          <div className="text-[10px] text-muted-foreground font-medium truncate">{desc}</div>
+                          <div className="text-[13px] font-extrabold tracking-tight truncate">{label}</div>
+                          <div className="text-[10px] text-muted-foreground font-semibold truncate mt-0.5">{desc}</div>
                         </div>
                       )}
                       {!collapsed && (
-                        <ChevronRight className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+                        <ChevronRight className={`w-4 h-4 ${item.color} opacity-50 flex-shrink-0`} />
                       )}
                     </NavLink>
                   );
