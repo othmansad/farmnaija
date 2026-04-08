@@ -1,7 +1,8 @@
 import { useApp } from "@/contexts/AppContext";
 import { t } from "@/data/translations";
-import { MapPin, Globe } from "lucide-react";
+import { MapPin, Globe, Rocket } from "lucide-react";
 import SettingsSheet from "@/components/SettingsSheet";
+import { useSidebar } from "@/components/ui/sidebar";
 
 const getGreeting = (language: "en" | "ha") => {
   const hour = new Date().getHours();
@@ -17,6 +18,7 @@ const getGreeting = (language: "en" | "ha") => {
 
 const Header = () => {
   const { language, setLanguage, stateName, lga } = useApp();
+  const { toggleSidebar } = useSidebar();
 
   return (
     <header className="sticky top-0 z-50 gradient-header px-4 sm:px-6 lg:px-8 pt-5 pb-6 shadow-lg">
@@ -27,6 +29,13 @@ const Header = () => {
             <span className="text-primary-foreground font-black text-xl tracking-tight drop-shadow-sm">{t("appName", language)}</span>
           </div>
           <div className="flex items-center gap-2">
+            <button
+              onClick={toggleSidebar}
+              className="flex items-center gap-1.5 gradient-harvest text-harvest-foreground text-xs font-black px-3.5 py-2 rounded-full active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg"
+            >
+              <Rocket className="w-3.5 h-3.5" />
+              {language === "en" ? "Get Started" : "Fara"}
+            </button>
             <button
               onClick={() => setLanguage(language === "en" ? "ha" : "en")}
               className="flex items-center gap-1.5 bg-primary-foreground/20 backdrop-blur-sm text-primary-foreground text-xs font-extrabold px-3 py-2 rounded-full active:scale-95 transition-all duration-200 hover:bg-primary-foreground/30"
