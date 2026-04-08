@@ -64,7 +64,7 @@ export function AppSidebar() {
       </SidebarHeader>
 
       <SidebarContent>
-        <SidebarGroup defaultOpen>
+        <SidebarGroup>
           <SidebarGroupLabel className="text-farm-label px-4">
             {!collapsed && (language === "en" ? "Features" : "Fasaloli")}
           </SidebarGroupLabel>
