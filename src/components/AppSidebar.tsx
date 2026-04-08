@@ -6,6 +6,7 @@ import {
   Newspaper,
   Sprout,
   ChevronRight,
+  X,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
@@ -23,17 +24,18 @@ import {
   SidebarFooter,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const features = [
-  { title: "Farm Planner", titleHa: "Tsarin Noma", url: "/planner", icon: CalendarDays, color: "text-primary", bg: "bg-primary/10", desc: "Plan your farming season" },
-  { title: "Analytics", titleHa: "Nazari", url: "/analytics", icon: BarChart3, color: "text-accent", bg: "bg-accent/10", desc: "Track crop & weather data" },
-  { title: "Learn", titleHa: "Koyi", url: "/learn", icon: BookOpen, color: "text-secondary", bg: "bg-secondary/10", desc: "Farming guides & tips" },
-  { title: "Community", titleHa: "Al'umma", url: "/community", icon: Users, color: "text-harvest", bg: "bg-harvest/10", desc: "Connect with farmers" },
-  { title: "News", titleHa: "Labarai", url: "/news", icon: Newspaper, color: "text-earth", bg: "bg-earth/10", desc: "Agricultural updates" },
+  { title: "Farm Planner", titleHa: "Tsarin Noma", url: "/planner", icon: CalendarDays, color: "text-primary", bg: "bg-primary/10", desc: "Plan your farming season", descHa: "Tsara lokacin noma" },
+  { title: "Analytics", titleHa: "Nazari", url: "/analytics", icon: BarChart3, color: "text-accent", bg: "bg-accent/10", desc: "Track crop & weather data", descHa: "Bibiyar bayanai" },
+  { title: "Learn", titleHa: "Koyi", url: "/learn", icon: BookOpen, color: "text-secondary", bg: "bg-secondary/10", desc: "Farming guides & tips", descHa: "Jagororin noma" },
+  { title: "Community", titleHa: "Al'umma", url: "/community", icon: Users, color: "text-harvest", bg: "bg-harvest/10", desc: "Connect with farmers", descHa: "Haɗa kai da manoma" },
+  { title: "News", titleHa: "Labarai", url: "/news", icon: Newspaper, color: "text-earth", bg: "bg-earth/10", desc: "Agricultural updates", descHa: "Sabuntawar noma" },
 ];
 
 export function AppSidebar() {
-  const { state } = useSidebar();
+  const { state, toggleSidebar } = useSidebar();
   const collapsed = state === "collapsed";
   const location = useLocation();
   const { language } = useApp();
@@ -42,18 +44,26 @@ export function AppSidebar() {
     <Sidebar collapsible="icon" className="border-r">
       <SidebarHeader className="p-4">
         {!collapsed && (
-          <div className="flex items-center gap-2.5">
-            <div className="bg-primary/10 p-2 rounded-xl">
-              <Sprout className="w-5 h-5 text-primary" />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="bg-primary/10 p-2 rounded-xl">
+                <Sprout className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <h2 className="font-black text-sm tracking-tight text-foreground">
+                  {language === "en" ? "Explore More" : "Bincika Ƙari"}
+                </h2>
+                <p className="text-[10px] text-muted-foreground font-semibold">
+                  {language === "en" ? "Advanced farming tools" : "Kayan aikin noma na zamani"}
+                </p>
+              </div>
             </div>
-            <div>
-              <h2 className="font-black text-sm tracking-tight text-foreground">
-                {language === "en" ? "Explore More" : "Bincika Ƙari"}
-              </h2>
-              <p className="text-[10px] text-muted-foreground font-semibold">
-                {language === "en" ? "Advanced farming tools" : "Kayan aikin noma na zamani"}
-              </p>
-            </div>
+            <button
+              onClick={toggleSidebar}
+              className="p-1.5 rounded-lg hover:bg-muted/60 text-muted-foreground transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
         )}
         {collapsed && (
@@ -70,9 +80,12 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {features.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild className="h-auto py-0">
+              <TooltipProvider delayDuration={0}>
+                {features.map((item) => {
+                  const label = language === "en" ? item.title : item.titleHa;
+                  const desc = language === "en" ? item.desc : item.descHa;
+
+                  const linkContent = (
                     <NavLink
                       to={item.url}
                       end
@@ -84,21 +97,35 @@ export function AppSidebar() {
                       </div>
                       {!collapsed && (
                         <div className="flex-1 min-w-0">
-                          <div className="text-sm font-bold truncate">
-                            {language === "en" ? item.title : item.titleHa}
-                          </div>
-                          <div className="text-[10px] text-muted-foreground font-medium truncate">
-                            {item.desc}
-                          </div>
+                          <div className="text-sm font-bold truncate">{label}</div>
+                          <div className="text-[10px] text-muted-foreground font-medium truncate">{desc}</div>
                         </div>
                       )}
                       {!collapsed && (
                         <ChevronRight className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
                       )}
                     </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+                  );
+
+                  return (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild className="h-auto py-0">
+                        {collapsed ? (
+                          <Tooltip>
+                            <TooltipTrigger asChild>{linkContent}</TooltipTrigger>
+                            <TooltipContent side="right" className="font-bold">
+                              <p className="font-bold text-sm">{label}</p>
+                              <p className="text-[10px] text-muted-foreground font-medium">{desc}</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        ) : (
+                          linkContent
+                        )}
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
+              </TooltipProvider>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
