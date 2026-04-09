@@ -1,6 +1,7 @@
 import { useApp } from "@/contexts/AppContext";
-import { CalendarDays, BarChart3, BookOpen, Users, Newspaper, ArrowLeft, Sprout } from "lucide-react";
+import { CalendarDays, BarChart3, BookOpen, Users, Newspaper, ArrowLeft, Sprout, Home, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useSidebar } from "@/components/ui/sidebar";
 
 interface FeaturePageProps {
   title: string;
