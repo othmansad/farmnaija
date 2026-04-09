@@ -1,4 +1,8 @@
 import { useApp } from "@/contexts/AppContext";
+import { usePremium } from "@/contexts/PremiumContext";
+import { PremiumModal } from "@/components/PremiumModal";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { CalendarDays, BarChart3, BookOpen, Users, Newspaper, ArrowLeft, Sprout, Home, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useSidebar } from "@/components/ui/sidebar";
