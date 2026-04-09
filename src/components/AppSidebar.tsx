@@ -82,22 +82,54 @@ export function AppSidebar() {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-farm-label px-4">
-            {!collapsed && (language === "en" ? "Features" : "Fasaloli")}
-          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
+              {/* Home button */}
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild className="h-auto py-0">
+                  <button
+                    onClick={() => handleNavClick("/")}
+                    className={`flex w-full ${collapsed ? 'flex-col items-center gap-1 px-1 py-2.5' : 'items-center gap-3 px-3 py-3.5'} rounded-2xl transition-all duration-200 hover:bg-muted/60 border border-transparent hover:border-border/50 hover:shadow-sm ${location.pathname === "/" ? "bg-primary/10 border-primary/20 font-extrabold shadow-sm" : ""}`}
+                  >
+                    <div className="bg-primary/10 p-2.5 rounded-xl flex-shrink-0 shadow-sm">
+                      <Home className="w-5 h-5 text-primary" />
+                    </div>
+                    {collapsed ? (
+                      <span className="text-[9px] font-black tracking-tight truncate mt-0.5">
+                        {language === "en" ? "Home" : "Gida"}
+                      </span>
+                    ) : (
+                      <>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-[13px] font-black tracking-tight truncate">
+                            {language === "en" ? "Home" : "Gida"}
+                          </div>
+                          <div className="text-[10px] text-muted-foreground font-semibold truncate mt-0.5">
+                            {language === "en" ? "Back to dashboard" : "Komawa dashboard"}
+                          </div>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-primary opacity-50 flex-shrink-0" />
+                      </>
+                    )}
+                  </button>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+
+              <div className="my-1 mx-3 border-t border-border/30" />
+
+              <SidebarGroupLabel className="text-farm-label px-4">
+                {!collapsed && (language === "en" ? "Features" : "Fasaloli")}
+              </SidebarGroupLabel>
+
               <TooltipProvider delayDuration={0}>
                 {features.map((item) => {
                   const label = language === "en" ? item.title : item.titleHa;
                   const desc = language === "en" ? item.desc : item.descHa;
 
                   const linkContent = (
-                    <NavLink
-                      to={item.url}
-                      end
-                      className={`flex ${collapsed ? 'flex-col items-center gap-1 px-1 py-2.5' : 'items-center gap-3 px-3 py-3.5'} rounded-2xl transition-all duration-200 hover:bg-muted/60 border border-transparent hover:border-border/50 hover:shadow-sm`}
-                      activeClassName={`${item.bg} ${item.borderColor} border font-extrabold shadow-sm`}
+                    <button
+                      onClick={() => handleNavClick(item.url)}
+                      className={`flex w-full ${collapsed ? 'flex-col items-center gap-1 px-1 py-2.5' : 'items-center gap-3 px-3 py-3.5'} rounded-2xl transition-all duration-200 hover:bg-muted/60 border border-transparent hover:border-border/50 hover:shadow-sm ${location.pathname === item.url ? `${item.bg} ${item.borderColor} border font-extrabold shadow-sm` : ""}`}
                     >
                       <div className={`${item.bg} p-2.5 rounded-xl flex-shrink-0 shadow-sm`}>
                         <item.icon className={`w-5 h-5 ${item.color}`} />
@@ -106,14 +138,14 @@ export function AppSidebar() {
                         <span className="text-[9px] font-black tracking-tight truncate mt-0.5">{label}</span>
                       ) : (
                         <>
-                          <div className="flex-1 min-w-0">
+                          <div className="flex-1 min-w-0 text-left">
                             <div className="text-[13px] font-black tracking-tight truncate">{label}</div>
                             <div className="text-[10px] text-muted-foreground font-semibold truncate mt-0.5">{desc}</div>
                           </div>
                           <ChevronRight className={`w-4 h-4 ${item.color} opacity-50 flex-shrink-0`} />
                         </>
                       )}
-                    </NavLink>
+                    </button>
                   );
 
                   return (
