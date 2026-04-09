@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppProvider } from "@/contexts/AppContext";
+import { PremiumProvider } from "@/contexts/PremiumContext";
 import { lazy, Suspense } from "react";
 import { Loader2 } from "lucide-react";
 import { AppSidebar } from "@/components/AppSidebar";
@@ -31,30 +32,32 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <AppProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <SidebarProvider defaultOpen={false}>
-            <div className="min-h-screen flex w-full">
-              <AppSidebar />
-              <div className="flex-1 flex flex-col min-w-0">
-                <Suspense fallback={<PageLoader />}>
-                  <Routes>
-                    <Route path="/" element={<Index />} />
-                    <Route path="/chat" element={<Chat />} />
-                    <Route path="/admin" element={<Admin />} />
-                    <Route path="/planner" element={<FeaturePages />} />
-                    <Route path="/analytics" element={<AnalyticsPage />} />
-                    <Route path="/learn" element={<LearnPage />} />
-                    <Route path="/community" element={<CommunityPage />} />
-                    <Route path="/news" element={<NewsPage />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </Suspense>
+        <PremiumProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <SidebarProvider defaultOpen={false}>
+              <div className="min-h-screen flex w-full">
+                <AppSidebar />
+                <div className="flex-1 flex flex-col min-w-0">
+                  <Suspense fallback={<PageLoader />}>
+                    <Routes>
+                      <Route path="/" element={<Index />} />
+                      <Route path="/chat" element={<Chat />} />
+                      <Route path="/admin" element={<Admin />} />
+                      <Route path="/planner" element={<FeaturePages />} />
+                      <Route path="/analytics" element={<AnalyticsPage />} />
+                      <Route path="/learn" element={<LearnPage />} />
+                      <Route path="/community" element={<CommunityPage />} />
+                      <Route path="/news" element={<NewsPage />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </Suspense>
+                </div>
               </div>
-            </div>
-          </SidebarProvider>
-        </BrowserRouter>
+            </SidebarProvider>
+          </BrowserRouter>
+        </PremiumProvider>
       </AppProvider>
     </TooltipProvider>
   </QueryClientProvider>
