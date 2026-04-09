@@ -7,9 +7,10 @@ import {
   Sprout,
   ChevronRight,
   X,
+  Home,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useApp } from "@/contexts/AppContext";
 import {
   Sidebar,
@@ -38,7 +39,13 @@ export function AppSidebar() {
   const { state, toggleSidebar } = useSidebar();
   const collapsed = state === "collapsed";
   const location = useLocation();
+  const navigate = useNavigate();
   const { language } = useApp();
+
+  const handleNavClick = (url: string) => {
+    navigate(url);
+    toggleSidebar();
+  };
 
   return (
     <Sidebar collapsible="icon" className="border-r">

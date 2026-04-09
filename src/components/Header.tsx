@@ -21,9 +21,9 @@ const Header = () => {
   const { toggleSidebar } = useSidebar();
 
   return (
-    <header className="sticky top-0 z-50 gradient-header px-4 sm:px-6 lg:px-8 pt-5 pb-6 shadow-lg">
+    <header className="sticky top-0 z-50 gradient-header px-4 sm:px-6 lg:px-8 pt-3 pb-3 sm:pt-5 sm:pb-6 shadow-lg">
       <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-1.5 sm:mb-3">
           <div className="flex items-center gap-2.5">
             <span className="text-3xl drop-shadow-sm">🌾</span>
             <span className="text-primary-foreground font-black text-xl tracking-tight drop-shadow-sm">{t("appName", language)}</span>
