@@ -1,4 +1,8 @@
 import { useApp } from "@/contexts/AppContext";
+import { usePremium } from "@/contexts/PremiumContext";
+import { PremiumModal } from "@/components/PremiumModal";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { CalendarDays, BarChart3, BookOpen, Users, Newspaper, ArrowLeft, Sprout, Home, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useSidebar } from "@/components/ui/sidebar";
@@ -17,6 +21,15 @@ interface FeaturePageProps {
 const FeaturePage = ({ title, titleHa, description, descHa, icon: Icon, color, bg, comingSoonItems }: FeaturePageProps) => {
   const { language } = useApp();
   const { toggleSidebar } = useSidebar();
+  const { canAccessPremium } = usePremium();
+  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    if (!canAccessPremium) {
+      setShowModal(true);
+    }
+  }, [canAccessPremium]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -81,6 +94,7 @@ const FeaturePage = ({ title, titleHa, description, descHa, icon: Icon, color, b
           ))}
         </div>
       </div>
+      <PremiumModal open={showModal} onClose={() => { setShowModal(false); if (!canAccessPremium) navigate("/"); }} featureName={language === "en" ? title : titleHa} />
     </div>
   );
 };
