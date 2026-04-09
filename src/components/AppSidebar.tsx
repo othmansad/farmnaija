@@ -89,7 +89,7 @@ export function AppSidebar() {
                     <NavLink
                       to={item.url}
                       end
-                      className={`flex items-center gap-3 px-3 py-3.5 rounded-2xl transition-all duration-200 hover:bg-muted/60 border border-transparent hover:border-border/50 hover:shadow-sm`}
+                      className={`flex ${collapsed ? 'flex-col items-center gap-1 px-1 py-2.5' : 'items-center gap-3 px-3 py-3.5'} rounded-2xl transition-all duration-200 hover:bg-muted/60 border border-transparent hover:border-border/50 hover:shadow-sm`}
                       activeClassName={`${item.bg} ${item.borderColor} border font-extrabold shadow-sm`}
                     >
                       <div className={`${item.bg} p-2.5 rounded-xl flex-shrink-0 shadow-sm`}>
