@@ -94,6 +94,7 @@ const FeaturePage = ({ title, titleHa, description, descHa, icon: Icon, color, b
           ))}
         </div>
       </div>
+      <PremiumModal open={showModal} onClose={() => { setShowModal(false); if (!canAccessPremium) navigate("/"); }} featureName={language === "en" ? title : titleHa} />
     </div>
   );
 };
