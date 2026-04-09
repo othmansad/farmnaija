@@ -21,6 +21,15 @@ interface FeaturePageProps {
 const FeaturePage = ({ title, titleHa, description, descHa, icon: Icon, color, bg, comingSoonItems }: FeaturePageProps) => {
   const { language } = useApp();
   const { toggleSidebar } = useSidebar();
+  const { canAccessPremium } = usePremium();
+  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    if (!canAccessPremium) {
+      setShowModal(true);
+    }
+  }, [canAccessPremium]);
 
   return (
     <div className="min-h-screen bg-background">
