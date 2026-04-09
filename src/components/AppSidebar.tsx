@@ -95,14 +95,16 @@ export function AppSidebar() {
                       <div className={`${item.bg} p-2.5 rounded-xl flex-shrink-0 shadow-sm`}>
                         <item.icon className={`w-5 h-5 ${item.color}`} />
                       </div>
-                      {!collapsed && (
-                        <div className="flex-1 min-w-0">
-                          <div className="text-[13px] font-extrabold tracking-tight truncate">{label}</div>
-                          <div className="text-[10px] text-muted-foreground font-semibold truncate mt-0.5">{desc}</div>
-                        </div>
-                      )}
-                      {!collapsed && (
-                        <ChevronRight className={`w-4 h-4 ${item.color} opacity-50 flex-shrink-0`} />
+                      {collapsed ? (
+                        <span className="text-[9px] font-black tracking-tight truncate mt-0.5">{label}</span>
+                      ) : (
+                        <>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-[13px] font-black tracking-tight truncate">{label}</div>
+                            <div className="text-[10px] text-muted-foreground font-semibold truncate mt-0.5">{desc}</div>
+                          </div>
+                          <ChevronRight className={`w-4 h-4 ${item.color} opacity-50 flex-shrink-0`} />
+                        </>
                       )}
                     </NavLink>
                   );
