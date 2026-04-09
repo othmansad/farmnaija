@@ -29,7 +29,7 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
-      <main className="flex-1 px-4 py-6 pb-36 w-full max-w-5xl mx-auto">
+      <main className="flex-1 px-3 sm:px-4 py-4 sm:py-6 pb-28 sm:pb-36 w-full max-w-5xl mx-auto">
         {/* Full-width alerts */}
         <div className="animate-fade-up mb-4" style={{ animationDelay: "0ms" }}>
           <AlertsCard />

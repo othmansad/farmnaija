@@ -1,6 +1,7 @@
 import { useApp } from "@/contexts/AppContext";
-import { CalendarDays, BarChart3, BookOpen, Users, Newspaper, ArrowLeft, Sprout } from "lucide-react";
+import { CalendarDays, BarChart3, BookOpen, Users, Newspaper, ArrowLeft, Sprout, Home, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useSidebar } from "@/components/ui/sidebar";
 
 interface FeaturePageProps {
   title: string;
@@ -15,21 +16,30 @@ interface FeaturePageProps {
 
 const FeaturePage = ({ title, titleHa, description, descHa, icon: Icon, color, bg, comingSoonItems }: FeaturePageProps) => {
   const { language } = useApp();
+  const { toggleSidebar } = useSidebar();
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 gradient-header px-4 sm:px-6 py-4 flex items-center gap-3 shadow-lg">
-        <Link to="/" className="text-primary-foreground/80 hover:text-primary-foreground active:scale-95 transition-all">
-          <ArrowLeft className="w-5 h-5" />
-        </Link>
-        <div className="flex items-center gap-2.5">
-          <div className="bg-primary-foreground/15 backdrop-blur-sm p-2 rounded-xl">
-            <Icon className="w-5 h-5 text-primary-foreground" />
+      <header className="sticky top-0 z-50 gradient-header px-4 sm:px-6 py-3 flex items-center justify-between shadow-lg">
+        <div className="flex items-center gap-3">
+          <Link to="/" className="text-primary-foreground/80 hover:text-primary-foreground active:scale-95 transition-all p-1.5 rounded-lg hover:bg-primary-foreground/10">
+            <Home className="w-5 h-5" />
+          </Link>
+          <div className="flex items-center gap-2.5">
+            <div className="bg-primary-foreground/15 backdrop-blur-sm p-2 rounded-xl">
+              <Icon className="w-5 h-5 text-primary-foreground" />
+            </div>
+            <span className="text-primary-foreground font-black text-lg tracking-tight">
+              {language === "en" ? title : titleHa}
+            </span>
           </div>
-          <span className="text-primary-foreground font-black text-lg tracking-tight">
-            {language === "en" ? title : titleHa}
-          </span>
         </div>
+        <button
+          onClick={toggleSidebar}
+          className="text-primary-foreground/80 hover:text-primary-foreground active:scale-95 transition-all p-2 rounded-xl hover:bg-primary-foreground/10"
+        >
+          <Menu className="w-5 h-5" />
+        </button>
       </header>
 
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8">
