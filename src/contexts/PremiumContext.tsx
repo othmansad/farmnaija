@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 
 const TRIAL_DAYS = 7;
-const TRIAL_KEY = "farmwise-trial-start";
-const SUB_KEY = "farmwise-subscribed";
 
 interface PremiumContextType {
   isSubscribed: boolean;
@@ -16,28 +16,61 @@ interface PremiumContextType {
 
 const PremiumContext = createContext<PremiumContextType | null>(null);
 
-function getTrialInfo() {
-  const start = localStorage.getItem(TRIAL_KEY);
-  if (!start) return { hasTrialStarted: false, isTrialActive: false, trialDaysLeft: TRIAL_DAYS };
-  const elapsed = (Date.now() - parseInt(start)) / (1000 * 60 * 60 * 24);
-  const daysLeft = Math.max(0, Math.ceil(TRIAL_DAYS - elapsed));
-  return { hasTrialStarted: true, isTrialActive: daysLeft > 0, trialDaysLeft: daysLeft };
-}
-
 export const PremiumProvider = ({ children }: { children: ReactNode }) => {
-  const [isSubscribed, setIsSubscribed] = useState(() => localStorage.getItem(SUB_KEY) === "true");
-  const [trialInfo, setTrialInfo] = useState(getTrialInfo);
+  const { user } = useAuth();
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [trialStartedAt, setTrialStartedAt] = useState<string | null>(null);
+  const [loaded, setLoaded] = useState(false);
 
-  const startTrial = () => {
-    if (!trialInfo.hasTrialStarted) {
-      localStorage.setItem(TRIAL_KEY, Date.now().toString());
-      setTrialInfo(getTrialInfo());
+  // Load profile from DB
+  useEffect(() => {
+    if (!user) {
+      setIsSubscribed(false);
+      setTrialStartedAt(null);
+      setLoaded(true);
+      return;
     }
+    const load = async () => {
+      const { data } = await supabase
+        .from("profiles")
+        .select("is_subscribed, trial_started_at")
+        .eq("id", user.id)
+        .single();
+      if (data) {
+        setIsSubscribed(data.is_subscribed);
+        setTrialStartedAt(data.trial_started_at);
+      }
+      setLoaded(true);
+    };
+    load();
+  }, [user]);
+
+  const getTrialInfo = () => {
+    if (!trialStartedAt) return { hasTrialStarted: false, isTrialActive: false, trialDaysLeft: TRIAL_DAYS };
+    const elapsed = (Date.now() - new Date(trialStartedAt).getTime()) / (1000 * 60 * 60 * 24);
+    const daysLeft = Math.max(0, Math.ceil(TRIAL_DAYS - elapsed));
+    return { hasTrialStarted: true, isTrialActive: daysLeft > 0, trialDaysLeft: daysLeft };
   };
 
-  const subscribe = () => {
-    localStorage.setItem(SUB_KEY, "true");
+  const trialInfo = getTrialInfo();
+
+  const startTrial = async () => {
+    if (trialInfo.hasTrialStarted || !user) return;
+    const now = new Date().toISOString();
+    setTrialStartedAt(now);
+    await supabase
+      .from("profiles")
+      .update({ trial_started_at: now, updated_at: new Date().toISOString() })
+      .eq("id", user.id);
+  };
+
+  const subscribe = async () => {
+    if (!user) return;
     setIsSubscribed(true);
+    await supabase
+      .from("profiles")
+      .update({ is_subscribed: true, subscribed_at: new Date().toISOString(), updated_at: new Date().toISOString() })
+      .eq("id", user.id);
   };
 
   const canAccessPremium = isSubscribed || trialInfo.isTrialActive;
