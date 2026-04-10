@@ -4,15 +4,18 @@ import {
   BookOpen,
   Users,
   Newspaper,
-  Sprout,
   ChevronRight,
   X,
   Home,
   Crown,
+  LogIn,
+  LogOut,
+  User,
 } from "lucide-react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useApp } from "@/contexts/AppContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { usePremium } from "@/contexts/PremiumContext";
 import { PremiumModal } from "@/components/PremiumModal";
 import {
@@ -44,13 +47,20 @@ export function AppSidebar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { language } = useApp();
+  const { user, signOut } = useAuth();
   const { canAccessPremium } = usePremium();
   const [premiumModal, setPremiumModal] = useState(false);
   const [selectedFeature, setSelectedFeature] = useState("");
 
   const handleNavClick = (url: string, featureTitle?: string) => {
-    if (url === "/") {
+    if (url === "/" || url === "/auth") {
       navigate(url);
+      toggleSidebar();
+      return;
+    }
+    // Must be logged in for premium features
+    if (!user) {
+      navigate("/auth");
       toggleSidebar();
       return;
     }
@@ -61,6 +71,12 @@ export function AppSidebar() {
       return;
     }
     navigate(url);
+    toggleSidebar();
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/");
     toggleSidebar();
   };
 
@@ -199,13 +215,45 @@ export function AppSidebar() {
           </SidebarGroup>
         </SidebarContent>
 
-        <SidebarFooter className="p-4">
+        <SidebarFooter className="p-4 space-y-2">
           {!collapsed && (
-            <div className="bg-muted/50 rounded-2xl p-3 text-center">
-              <p className="text-[10px] text-muted-foreground font-semibold">
-                🌾 FarmWise Nigeria
-              </p>
-            </div>
+            <>
+              {user ? (
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 bg-muted/50 rounded-xl p-2.5">
+                    <div className="bg-primary/10 p-1.5 rounded-lg">
+                      <User className="w-3.5 h-3.5 text-primary" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[11px] font-bold truncate text-foreground">
+                        {user.user_metadata?.full_name || user.email?.split("@")[0]}
+                      </p>
+                      <p className="text-[9px] text-muted-foreground truncate">{user.email}</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={handleSignOut}
+                    className="w-full flex items-center justify-center gap-1.5 text-[11px] font-bold text-destructive hover:bg-destructive/10 rounded-xl py-2 transition-colors"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                    {language === "en" ? "Sign Out" : "Fita"}
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => handleNavClick("/auth")}
+                  className="w-full flex items-center justify-center gap-1.5 bg-primary text-primary-foreground text-[11px] font-black rounded-xl py-2.5 hover:bg-primary/90 transition-colors"
+                >
+                  <LogIn className="w-3.5 h-3.5" />
+                  {language === "en" ? "Sign In" : "Shiga"}
+                </button>
+              )}
+              <div className="bg-muted/50 rounded-2xl p-3 text-center">
+                <p className="text-[10px] text-muted-foreground font-semibold">
+                  🌾 FarmWise Nigeria
+                </p>
+              </div>
+            </>
           )}
         </SidebarFooter>
       </Sidebar>

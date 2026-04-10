@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppProvider } from "@/contexts/AppContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 import { PremiumProvider } from "@/contexts/PremiumContext";
 import { lazy, Suspense } from "react";
 import { Loader2 } from "lucide-react";
@@ -14,6 +15,7 @@ import NotFound from "./pages/NotFound.tsx";
 
 const Chat = lazy(() => import("./pages/Chat.tsx"));
 const Admin = lazy(() => import("./pages/Admin.tsx"));
+const Auth = lazy(() => import("./pages/Auth.tsx"));
 const FeaturePages = lazy(() => import("./pages/FeaturePages.tsx").then(m => ({ default: m.PlannerPage })));
 const AnalyticsPage = lazy(() => import("./pages/FeaturePages.tsx").then(m => ({ default: m.AnalyticsPage })));
 const LearnPage = lazy(() => import("./pages/FeaturePages.tsx").then(m => ({ default: m.LearnPage })));
@@ -31,34 +33,37 @@ const PageLoader = () => (
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <AppProvider>
-        <PremiumProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <SidebarProvider defaultOpen={false}>
-              <div className="min-h-screen flex w-full">
-                <AppSidebar />
-                <div className="flex-1 flex flex-col min-w-0">
-                  <Suspense fallback={<PageLoader />}>
-                    <Routes>
-                      <Route path="/" element={<Index />} />
-                      <Route path="/chat" element={<Chat />} />
-                      <Route path="/admin" element={<Admin />} />
-                      <Route path="/planner" element={<FeaturePages />} />
-                      <Route path="/analytics" element={<AnalyticsPage />} />
-                      <Route path="/learn" element={<LearnPage />} />
-                      <Route path="/community" element={<CommunityPage />} />
-                      <Route path="/news" element={<NewsPage />} />
-                      <Route path="*" element={<NotFound />} />
-                    </Routes>
-                  </Suspense>
+      <AuthProvider>
+        <AppProvider>
+          <PremiumProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <SidebarProvider defaultOpen={false}>
+                <div className="min-h-screen flex w-full">
+                  <AppSidebar />
+                  <div className="flex-1 flex flex-col min-w-0">
+                    <Suspense fallback={<PageLoader />}>
+                      <Routes>
+                        <Route path="/" element={<Index />} />
+                        <Route path="/auth" element={<Auth />} />
+                        <Route path="/chat" element={<Chat />} />
+                        <Route path="/admin" element={<Admin />} />
+                        <Route path="/planner" element={<FeaturePages />} />
+                        <Route path="/analytics" element={<AnalyticsPage />} />
+                        <Route path="/learn" element={<LearnPage />} />
+                        <Route path="/community" element={<CommunityPage />} />
+                        <Route path="/news" element={<NewsPage />} />
+                        <Route path="*" element={<NotFound />} />
+                      </Routes>
+                    </Suspense>
+                  </div>
                 </div>
-              </div>
-            </SidebarProvider>
-          </BrowserRouter>
-        </PremiumProvider>
-      </AppProvider>
+              </SidebarProvider>
+            </BrowserRouter>
+          </PremiumProvider>
+        </AppProvider>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
