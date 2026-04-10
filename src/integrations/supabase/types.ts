@@ -38,6 +38,48 @@ export type Database = {
         }
         Relationships: []
       }
+      crop_tracking: {
+        Row: {
+          area_size: string | null
+          created_at: string
+          crop_icon: string
+          crop_name: string
+          growth_stage: string
+          health: string
+          id: string
+          last_updated: string
+          notes: string | null
+          planted_date: string
+          user_id: string
+        }
+        Insert: {
+          area_size?: string | null
+          created_at?: string
+          crop_icon?: string
+          crop_name: string
+          growth_stage?: string
+          health?: string
+          id?: string
+          last_updated?: string
+          notes?: string | null
+          planted_date: string
+          user_id: string
+        }
+        Update: {
+          area_size?: string | null
+          created_at?: string
+          crop_icon?: string
+          crop_name?: string
+          growth_stage?: string
+          health?: string
+          id?: string
+          last_updated?: string
+          notes?: string | null
+          planted_date?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       farm_alerts: {
         Row: {
           active: boolean
@@ -71,6 +113,75 @@ export type Database = {
           state_id?: string
           title_en?: string
           title_ha?: string
+        }
+        Relationships: []
+      }
+      farm_tasks: {
+        Row: {
+          completed: boolean
+          created_at: string
+          description: string | null
+          due_date: string | null
+          id: string
+          priority: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          completed?: boolean
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      planting_events: {
+        Row: {
+          created_at: string
+          crop_icon: string
+          crop_name: string
+          expected_harvest: string | null
+          id: string
+          notes: string | null
+          plant_date: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          crop_icon?: string
+          crop_name: string
+          expected_harvest?: string | null
+          id?: string
+          notes?: string | null
+          plant_date: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          crop_icon?: string
+          crop_name?: string
+          expected_harvest?: string | null
+          id?: string
+          notes?: string | null
+          plant_date?: string
+          status?: string
+          user_id?: string
         }
         Relationships: []
       }
