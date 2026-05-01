@@ -13,6 +13,7 @@ import { Bot, Rocket } from "lucide-react";
 import { useEffect } from "react";
 import { trackEvent } from "@/services/analytics";
 import { useSidebar } from "@/components/ui/sidebar";
+import farmwiseBg from "@/assets/farmwise-bg.jpg";
 
 const Index = () => {
   const { language, stateId } = useApp();
