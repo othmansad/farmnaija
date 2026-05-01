@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { ArrowLeft, Plus, Trash2, Shield, BarChart3 } from "lucide-react";
-import { Link } from "react-router-dom";
-import { checkAdminPassword } from "@/services/adminStore";
+import { ArrowLeft, Plus, Trash2, Shield, BarChart3, LogIn } from "lucide-react";
+import { Link, Navigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 import {
   fetchAllAlerts, createAlert, deleteAlert,
   fetchSeasonTips, createSeasonTip, deleteSeasonTip,
@@ -11,9 +12,8 @@ import { getAnalyticsSummary, type AnalyticsSummary } from "@/services/analytics
 import { states } from "@/data/locations";
 
 const AdminPage = () => {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const { user, loading: authLoading } = useAuth();
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [tab, setTab] = useState<"alerts" | "tips" | "analytics">("alerts");
   const [alerts, setAlerts] = useState<FarmAlert[]>([]);
   const [tips, setTips] = useState<any[]>([]);
@@ -32,21 +32,30 @@ const AdminPage = () => {
   const [tipEn, setTipEn] = useState("");
   const [tipHa, setTipHa] = useState("");
 
+  // Verify admin role server-side via user_roles + RLS
   useEffect(() => {
-    if (authenticated) {
+    if (authLoading) return;
+    if (!user) {
+      setIsAdmin(false);
+      return;
+    }
+    (async () => {
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", user.id)
+        .eq("role", "admin")
+        .maybeSingle();
+      setIsAdmin(!error && !!data);
+    })();
+  }, [user, authLoading]);
+
+  useEffect(() => {
+    if (isAdmin) {
       fetchAllAlerts().then(setAlerts);
       fetchSeasonTips().then(setTips);
     }
-  }, [authenticated]);
-
-  const handleLogin = () => {
-    if (checkAdminPassword(password)) {
-      setAuthenticated(true);
-      setError("");
-    } else {
-      setError("Wrong password");
-    }
-  };
+  }, [isAdmin]);
 
   const handleAddAlert = async () => {
     if (!alertTitleEn || saving) return;
@@ -98,28 +107,43 @@ const AdminPage = () => {
     setAnalytics(summary);
   };
 
-  if (!authenticated) {
+  if (authLoading || isAdmin === null) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-sm text-muted-foreground font-semibold">Checking access...</p>
+      </div>
+    );
+  }
+
+  if (!user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background p-4">
-        <div className="w-full max-w-sm space-y-4">
-          <div className="text-center">
-            <Shield className="w-12 h-12 mx-auto text-primary mb-2" />
-            <h1 className="text-xl font-bold">Admin Login</h1>
-            <p className="text-sm text-muted-foreground">Enter admin password</p>
-          </div>
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            onKeyDown={e => e.key === "Enter" && handleLogin()}
-            placeholder="Password"
-            className="w-full bg-muted rounded-2xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary/30"
-          />
-          {error && <p className="text-sm text-destructive text-center">{error}</p>}
-          <button onClick={handleLogin} className="w-full btn-farm">
-            Login
-          </button>
+        <div className="w-full max-w-sm space-y-4 text-center">
+          <Shield className="w-12 h-12 mx-auto text-primary" />
+          <h1 className="text-xl font-bold">Sign in required</h1>
+          <p className="text-sm text-muted-foreground">You must sign in to access the admin panel.</p>
+          <Link to="/auth" className="inline-flex items-center gap-2 btn-farm justify-center">
+            <LogIn className="w-4 h-4" /> Sign in
+          </Link>
           <Link to="/" className="block text-center text-sm text-muted-foreground font-semibold">← Back to app</Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background p-4">
+        <div className="w-full max-w-sm space-y-4 text-center">
+          <Shield className="w-12 h-12 mx-auto text-primary" />
+          <h1 className="text-xl font-bold">Admin Access Required</h1>
+          <p className="text-sm text-muted-foreground">
+            Your account ({user.email}) does not have admin permissions. Contact a system
+            administrator to be granted the <span className="font-mono">admin</span> role.
+          </p>
+          <Link to="/" className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
+            <ArrowLeft className="w-4 h-4" /> Back to app
+          </Link>
         </div>
       </div>
     );
