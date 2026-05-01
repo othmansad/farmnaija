@@ -13,6 +13,7 @@ import { Bot, Rocket } from "lucide-react";
 import { useEffect } from "react";
 import { trackEvent } from "@/services/analytics";
 import { useSidebar } from "@/components/ui/sidebar";
+import farmwiseBg from "@/assets/farmwise-bg.jpg";
 
 const Index = () => {
   const { language, stateId } = useApp();
@@ -27,7 +28,17 @@ const Index = () => {
   }, [stateId]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-background relative">
+      {/* Responsive background image with overlay for readability */}
+      <div
+        aria-hidden
+        className="fixed inset-0 -z-10 bg-center bg-cover bg-no-repeat"
+        style={{ backgroundImage: `url(${farmwiseBg})` }}
+      />
+      <div
+        aria-hidden
+        className="fixed inset-0 -z-10 bg-background/85 dark:bg-background/90 backdrop-blur-sm"
+      />
       <Header />
       <main className="flex-1 px-3 sm:px-4 py-4 sm:py-6 pb-28 sm:pb-36 w-full max-w-5xl mx-auto">
         {/* Full-width alerts */}
