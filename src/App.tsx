@@ -17,8 +17,8 @@ const Chat = lazy(() => import("./pages/Chat.tsx"));
 const Admin = lazy(() => import("./pages/Admin.tsx"));
 const Auth = lazy(() => import("./pages/Auth.tsx"));
 const PlannerPage = lazy(() => import("./pages/PlannerPage.tsx"));
-const AnalyticsPage = lazy(() => import("./pages/FeaturePages.tsx").then(m => ({ default: m.AnalyticsPage })));
-const LearnPage = lazy(() => import("./pages/FeaturePages.tsx").then(m => ({ default: m.LearnPage })));
+const AnalyticsPage = lazy(() => import("./pages/AnalyticsPage.tsx"));
+const LearnPage = lazy(() => import("./pages/LearnPage.tsx"));
 const CommunityPage = lazy(() => import("./pages/FeaturePages.tsx").then(m => ({ default: m.CommunityPage })));
 const NewsPage = lazy(() => import("./pages/FeaturePages.tsx").then(m => ({ default: m.NewsPage })));
 
