@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { ArrowLeft, Plus, Trash2, Shield, BarChart3 } from "lucide-react";
-import { Link } from "react-router-dom";
-import { checkAdminPassword } from "@/services/adminStore";
+import { ArrowLeft, Plus, Trash2, Shield, BarChart3, LogIn } from "lucide-react";
+import { Link, Navigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 import {
   fetchAllAlerts, createAlert, deleteAlert,
   fetchSeasonTips, createSeasonTip, deleteSeasonTip,
