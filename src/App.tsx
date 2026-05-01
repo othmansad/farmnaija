@@ -10,6 +10,7 @@ import { PremiumProvider } from "@/contexts/PremiumContext";
 import { lazy, Suspense } from "react";
 import { Loader2 } from "lucide-react";
 import { AppSidebar } from "@/components/AppSidebar";
+import { RemindersBootstrap } from "@/components/RemindersBootstrap";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
@@ -36,6 +37,7 @@ const App = () => (
       <AuthProvider>
         <AppProvider>
           <PremiumProvider>
+            <RemindersBootstrap />
             <Toaster />
             <Sonner />
             <BrowserRouter>
