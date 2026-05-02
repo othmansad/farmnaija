@@ -20,7 +20,11 @@ interface AppContextType {
   saveCurrentLocation: () => void;
   removeSavedLocation: (index: number) => void;
   switchToLocation: (loc: SavedLocation) => void;
+  bgTheme: BgTheme;
+  setBgTheme: (t: BgTheme) => void;
 }
+
+export type BgTheme = "photo" | "solid" | "gradient";
 
 const AppContext = createContext<AppContextType | null>(null);
 
@@ -46,6 +50,14 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [savedLocations, setSavedLocations] = useState<SavedLocation[]>(() => {
     return loadJSON<SavedLocation[]>("farmwise-saved-locations", []);
   });
+  const [bgTheme, setBgThemeState] = useState<BgTheme>(() => {
+    return (localStorage.getItem("farmwise-bg-theme") as BgTheme) || "photo";
+  });
+
+  const setBgTheme = (t: BgTheme) => {
+    setBgThemeState(t);
+    localStorage.setItem("farmwise-bg-theme", t);
+  };
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
@@ -101,6 +113,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         lga, setLga,
         stateName,
         savedLocations, saveCurrentLocation, removeSavedLocation, switchToLocation,
+        bgTheme, setBgTheme,
       }}
     >
       {children}

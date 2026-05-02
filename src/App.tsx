@@ -20,8 +20,8 @@ const Auth = lazy(() => import("./pages/Auth.tsx"));
 const PlannerPage = lazy(() => import("./pages/PlannerPage.tsx"));
 const AnalyticsPage = lazy(() => import("./pages/AnalyticsPage.tsx"));
 const LearnPage = lazy(() => import("./pages/LearnPage.tsx"));
-const CommunityPage = lazy(() => import("./pages/FeaturePages.tsx").then(m => ({ default: m.CommunityPage })));
-const NewsPage = lazy(() => import("./pages/FeaturePages.tsx").then(m => ({ default: m.NewsPage })));
+const CommunityPage = lazy(() => import("./pages/CommunityPage.tsx"));
+const NewsPage = lazy(() => import("./pages/NewsPage.tsx"));
 
 const queryClient = new QueryClient();
 
