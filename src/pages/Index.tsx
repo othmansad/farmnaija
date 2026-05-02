@@ -42,7 +42,7 @@ const Index = () => {
   const themeLabel: Record<BgTheme, { en: string; ha: string }> = {
     photo: { en: "Photo", ha: "Hoto" },
     gradient: { en: "Gradient", ha: "Gradient" },
-    solid: { en: "Solid", ha: "Sauƒi" },
+    solid: { en: "Solid", ha: "Sauki" },
   };
 
   return (
