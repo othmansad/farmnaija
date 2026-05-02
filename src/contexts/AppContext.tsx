@@ -20,7 +20,11 @@ interface AppContextType {
   saveCurrentLocation: () => void;
   removeSavedLocation: (index: number) => void;
   switchToLocation: (loc: SavedLocation) => void;
+  bgTheme: BgTheme;
+  setBgTheme: (t: BgTheme) => void;
 }
+
+export type BgTheme = "photo" | "solid" | "gradient";
 
 const AppContext = createContext<AppContextType | null>(null);
 
