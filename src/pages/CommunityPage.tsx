@@ -21,13 +21,7 @@ const GROUPS: Group[] = [
   { id: "6", name: { en: "Soil Health & Composting", ha: "Lafiyar Ƙasa & Taki" }, desc: { en: "Build organic matter, reduce fertilizer dependence sustainably.", ha: "Inganta ƙasa da rage dogaro kan taki." }, members: 1423, emoji: "🌱" },
 ];
 
-const THREADS: Thread[] = [
-  { id: "1", title: { en: "Best maize variety for late-season planting in Plateau?", ha: "Mafi kyawun nau'in masara don shukar ƙarshen lokaci a Plateau?" }, author: "Aisha M.", replies: 23, likes: 47, tag: "Maize", lastActive: "2h" },
-  { id: "2", title: { en: "Fall armyworm outbreak — what's working for you?", ha: "Barkewar Fall armyworm — me ke aiki?" }, author: "Musa B.", replies: 41, likes: 89, tag: "Pests", lastActive: "5h" },
-  { id: "3", title: { en: "Solar pump vs petrol pump for 2 hectares?", ha: "Famfon hasken rana vs na fetur?" }, author: "Chinedu O.", replies: 18, likes: 32, tag: "Irrigation", lastActive: "1d" },
-  { id: "4", title: { en: "Where to sell tomatoes during Jos glut?", ha: "Ina za a sayar da tumatir lokacin yalwa?" }, author: "Hauwa I.", replies: 12, likes: 28, tag: "Market", lastActive: "1d" },
-  { id: "5", title: { en: "Cowpea storage without chemicals — Triple bag method", ha: "Ajiye wake ba tare da magunguna ba — Hanyar buhu uku" }, author: "Yusuf K.", replies: 35, likes: 102, tag: "Storage", lastActive: "2d" },
-];
+
 
 const EXPERTS: Expert[] = [
   { id: "1", name: "Dr. Ibrahim Sani", title: { en: "Agronomist, ABU Zaria", ha: "Masanin Noma, ABU Zaria" }, specialty: { en: "Cereal crops, soil fertility", ha: "Hatsi, lafiyar ƙasa" }, questions: 184, verified: true, emoji: "👨‍🔬" },
