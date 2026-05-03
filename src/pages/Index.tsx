@@ -19,6 +19,7 @@ import type { BgTheme } from "@/contexts/AppContext";
 const Index = () => {
   const { language, stateId, bgTheme, setBgTheme } = useApp();
   const { toggleSidebar } = useSidebar();
+  const { user } = useAuth();
   const [booting, setBooting] = useState(true);
 
   useEffect(() => {
