@@ -135,16 +135,29 @@ const Index = () => {
       {/* Fixed bottom bar */}
       <div className="fixed bottom-0 left-0 right-0 z-50 px-3 sm:px-4 pb-4 sm:pb-5 pt-3 bg-gradient-to-t from-background via-background/95 to-transparent">
         <div className="flex gap-2.5 sm:gap-3 max-w-md mx-auto">
-          <button
-            onClick={toggleSidebar}
-            className="gradient-harvest text-harvest-foreground rounded-2xl shadow-lg active:scale-[0.97] transition-all duration-200 flex items-center justify-center gap-2 py-3.5 sm:py-4 px-4 sm:px-5"
-            style={{ boxShadow: "0 6px 24px -4px hsl(38 92% 50% / 0.45)" }}
-          >
-            <Rocket className="w-4 h-4 sm:w-5 sm:h-5" />
-            <span className="text-xs sm:text-sm font-black tracking-wide whitespace-nowrap">
-              {language === "en" ? "Get Started" : "Fara"}
-            </span>
-          </button>
+          {user ? (
+            <Link
+              to="/planner"
+              className="gradient-harvest text-harvest-foreground rounded-2xl shadow-lg active:scale-[0.97] transition-all duration-200 flex items-center justify-center gap-2 py-3.5 sm:py-4 px-4 sm:px-5"
+              style={{ boxShadow: "0 6px 24px -4px hsl(38 92% 50% / 0.45)" }}
+            >
+              <CalendarDays className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="text-xs sm:text-sm font-black tracking-wide whitespace-nowrap">
+                {language === "en" ? "My Farm" : "Gonata"}
+              </span>
+            </Link>
+          ) : (
+            <Link
+              to="/auth"
+              className="gradient-harvest text-harvest-foreground rounded-2xl shadow-lg active:scale-[0.97] transition-all duration-200 flex items-center justify-center gap-2 py-3.5 sm:py-4 px-4 sm:px-5"
+              style={{ boxShadow: "0 6px 24px -4px hsl(38 92% 50% / 0.45)" }}
+            >
+              <Rocket className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="text-xs sm:text-sm font-black tracking-wide whitespace-nowrap">
+                {language === "en" ? "Get Started" : "Fara"}
+              </span>
+            </Link>
+          )}
           <Link
             to="/chat"
             className="flex-1 gradient-header text-primary-foreground rounded-2xl shadow-xl active:scale-[0.97] transition-all duration-200 flex items-center justify-center gap-2 sm:gap-3 py-3.5 sm:py-4"
@@ -157,6 +170,26 @@ const Index = () => {
           </Link>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="relative z-10 mt-auto px-4 pb-28 pt-6 text-center">
+        <div className="max-w-3xl mx-auto border-t border-border/40 pt-5 space-y-3">
+          <div className="flex justify-center gap-4 text-muted-foreground">
+            <a href="mailto:hello@farmwise.ng" aria-label="Email" className="hover:text-primary transition-colors"><Mail className="w-4 h-4" /></a>
+            <a href="#" aria-label="Twitter" className="hover:text-primary transition-colors"><Twitter className="w-4 h-4" /></a>
+            <a href="#" aria-label="GitHub" className="hover:text-primary transition-colors"><Github className="w-4 h-4" /></a>
+          </div>
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-[11px] font-bold text-muted-foreground">
+            <Link to="/learn" className="hover:text-primary">{language === "en" ? "Learn" : "Koyi"}</Link>
+            <Link to="/community" className="hover:text-primary">{language === "en" ? "Community" : "Al'umma"}</Link>
+            <Link to="/news" className="hover:text-primary">{language === "en" ? "News" : "Labarai"}</Link>
+            <Link to="/analytics" className="hover:text-primary">{language === "en" ? "Analytics" : "Nazari"}</Link>
+          </div>
+          <p className="text-[10px] font-semibold text-muted-foreground">
+            🌾 © {new Date().getFullYear()} FarmWise Nigeria · {language === "en" ? "Built for Nigerian farmers" : "An gina don manoman Najeriya"}
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };
