@@ -88,19 +88,20 @@ const CommunityPage = () => {
 
       <div className="max-w-3xl mx-auto px-3 sm:px-5 py-5 space-y-4">
         {/* Tabs */}
-        <div className="grid grid-cols-4 gap-1.5 bg-muted/50 p-1.5 rounded-2xl">
+        <div className="grid grid-cols-4 gap-1 bg-muted/50 p-1 rounded-2xl">
           {tabs.map(t => {
             const Icon = t.icon;
+            const active = tab === t.id;
             return (
               <button
                 key={t.id}
                 onClick={() => setTab(t.id)}
-                className={`flex flex-col items-center gap-1 py-2 rounded-xl text-[11px] font-extrabold transition-all ${
-                  tab === t.id ? "bg-card text-primary shadow-sm" : "text-muted-foreground"
+                className={`flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-xl text-[10px] sm:text-[11px] font-extrabold transition-all min-w-0 ${
+                  active ? "bg-card text-primary shadow-sm" : "text-muted-foreground"
                 }`}
               >
-                <Icon className="w-4 h-4" />
-                <span className="hidden xs:inline sm:inline">{t.label[language]}</span>
+                <Icon className="w-4 h-4 flex-shrink-0" />
+                <span className="truncate w-full text-center leading-tight">{t.label[language]}</span>
               </button>
             );
           })}
