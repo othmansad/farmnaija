@@ -177,7 +177,7 @@ const CommunityPage = () => {
                   <p className="text-xs font-medium mt-1">{e.specialty[language]}</p>
                   <p className="text-[11px] font-extrabold text-primary mt-1.5">{e.questions} {language === "en" ? "questions answered" : "tambayoyi an amsa"}</p>
                 </div>
-                <Link to="/chat" className="flex-shrink-0 px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-[11px] font-black active:scale-95">
+                <Link to="/community/qa" className="flex-shrink-0 px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-[11px] font-black active:scale-95">
                   {language === "en" ? "Ask" : "Tambaya"}
                 </Link>
               </div>
