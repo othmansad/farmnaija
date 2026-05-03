@@ -8,16 +8,18 @@ import FarmingTip from "@/components/FarmingTip";
 import CropRecommendations from "@/components/CropRecommendations";
 import SavedLocationsCard from "@/components/SavedLocationsCard";
 import AlertsCard from "@/components/AlertsCard";
-import { Bot, Rocket, Image as ImageIcon, Square, Sparkles } from "lucide-react";
+import { Bot, Rocket, Image as ImageIcon, Square, Sparkles, CalendarDays, Mail, Github, Twitter } from "lucide-react";
 import { useEffect, useState } from "react";
 import { trackEvent } from "@/services/analytics";
 import { useSidebar } from "@/components/ui/sidebar";
-import farmwiseBg from "@/assets/farmwise-bg.jpg";
+import { useAuth } from "@/contexts/AuthContext";
+import farmwiseBg from "@/assets/farmwise-logo-bg.jpg";
 import type { BgTheme } from "@/contexts/AppContext";
 
 const Index = () => {
   const { language, stateId, bgTheme, setBgTheme } = useApp();
   const { toggleSidebar } = useSidebar();
+  const { user } = useAuth();
   const [booting, setBooting] = useState(true);
 
   useEffect(() => {
@@ -55,10 +57,14 @@ const Index = () => {
             className="fixed inset-0 -z-10 bg-center bg-cover bg-no-repeat"
             style={{ backgroundImage: `url(${farmwiseBg})` }}
           />
-          {/* Stronger overlay for legibility — both modes */}
+          {/* Brand-tinted overlay tuned to logo's deep green */}
           <div
             aria-hidden
-            className="fixed inset-0 -z-10 bg-background/92 dark:bg-background/94 backdrop-blur-md"
+            className="fixed inset-0 -z-10"
+            style={{
+              background:
+                "linear-gradient(180deg, hsl(148 50% 14% / 0.78) 0%, hsl(148 45% 10% / 0.88) 60%, hsl(var(--background) / 0.94) 100%)",
+            }}
           />
         </>
       )}
@@ -129,16 +135,29 @@ const Index = () => {
       {/* Fixed bottom bar */}
       <div className="fixed bottom-0 left-0 right-0 z-50 px-3 sm:px-4 pb-4 sm:pb-5 pt-3 bg-gradient-to-t from-background via-background/95 to-transparent">
         <div className="flex gap-2.5 sm:gap-3 max-w-md mx-auto">
-          <button
-            onClick={toggleSidebar}
-            className="gradient-harvest text-harvest-foreground rounded-2xl shadow-lg active:scale-[0.97] transition-all duration-200 flex items-center justify-center gap-2 py-3.5 sm:py-4 px-4 sm:px-5"
-            style={{ boxShadow: "0 6px 24px -4px hsl(38 92% 50% / 0.45)" }}
-          >
-            <Rocket className="w-4 h-4 sm:w-5 sm:h-5" />
-            <span className="text-xs sm:text-sm font-black tracking-wide whitespace-nowrap">
-              {language === "en" ? "Get Started" : "Fara"}
-            </span>
-          </button>
+          {user ? (
+            <Link
+              to="/planner"
+              className="gradient-harvest text-harvest-foreground rounded-2xl shadow-lg active:scale-[0.97] transition-all duration-200 flex items-center justify-center gap-2 py-3.5 sm:py-4 px-4 sm:px-5"
+              style={{ boxShadow: "0 6px 24px -4px hsl(38 92% 50% / 0.45)" }}
+            >
+              <CalendarDays className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="text-xs sm:text-sm font-black tracking-wide whitespace-nowrap">
+                {language === "en" ? "My Farm" : "Gonata"}
+              </span>
+            </Link>
+          ) : (
+            <Link
+              to="/auth"
+              className="gradient-harvest text-harvest-foreground rounded-2xl shadow-lg active:scale-[0.97] transition-all duration-200 flex items-center justify-center gap-2 py-3.5 sm:py-4 px-4 sm:px-5"
+              style={{ boxShadow: "0 6px 24px -4px hsl(38 92% 50% / 0.45)" }}
+            >
+              <Rocket className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="text-xs sm:text-sm font-black tracking-wide whitespace-nowrap">
+                {language === "en" ? "Get Started" : "Fara"}
+              </span>
+            </Link>
+          )}
           <Link
             to="/chat"
             className="flex-1 gradient-header text-primary-foreground rounded-2xl shadow-xl active:scale-[0.97] transition-all duration-200 flex items-center justify-center gap-2 sm:gap-3 py-3.5 sm:py-4"
@@ -151,6 +170,26 @@ const Index = () => {
           </Link>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="relative z-10 mt-auto px-4 pb-28 pt-6 text-center">
+        <div className="max-w-3xl mx-auto border-t border-border/40 pt-5 space-y-3">
+          <div className="flex justify-center gap-4 text-muted-foreground">
+            <a href="mailto:hello@farmwise.ng" aria-label="Email" className="hover:text-primary transition-colors"><Mail className="w-4 h-4" /></a>
+            <a href="#" aria-label="Twitter" className="hover:text-primary transition-colors"><Twitter className="w-4 h-4" /></a>
+            <a href="#" aria-label="GitHub" className="hover:text-primary transition-colors"><Github className="w-4 h-4" /></a>
+          </div>
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-[11px] font-bold text-muted-foreground">
+            <Link to="/learn" className="hover:text-primary">{language === "en" ? "Learn" : "Koyi"}</Link>
+            <Link to="/community" className="hover:text-primary">{language === "en" ? "Community" : "Al'umma"}</Link>
+            <Link to="/news" className="hover:text-primary">{language === "en" ? "News" : "Labarai"}</Link>
+            <Link to="/analytics" className="hover:text-primary">{language === "en" ? "Analytics" : "Nazari"}</Link>
+          </div>
+          <p className="text-[10px] font-semibold text-muted-foreground">
+            🌾 © {new Date().getFullYear()} FarmWise Nigeria · {language === "en" ? "Built for Nigerian farmers" : "An gina don manoman Najeriya"}
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };

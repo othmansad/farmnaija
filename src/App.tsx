@@ -21,6 +21,8 @@ const PlannerPage = lazy(() => import("./pages/PlannerPage.tsx"));
 const AnalyticsPage = lazy(() => import("./pages/AnalyticsPage.tsx"));
 const LearnPage = lazy(() => import("./pages/LearnPage.tsx"));
 const CommunityPage = lazy(() => import("./pages/CommunityPage.tsx"));
+const ForumThreadPage = lazy(() => import("./pages/ForumThreadPage.tsx"));
+const ExpertQAPage = lazy(() => import("./pages/ExpertQAPage.tsx"));
 const NewsPage = lazy(() => import("./pages/NewsPage.tsx"));
 
 const queryClient = new QueryClient();
@@ -55,6 +57,8 @@ const App = () => (
                         <Route path="/analytics" element={<AnalyticsPage />} />
                         <Route path="/learn" element={<LearnPage />} />
                         <Route path="/community" element={<CommunityPage />} />
+                        <Route path="/community/forum/:id" element={<ForumThreadPage />} />
+                        <Route path="/community/qa" element={<ExpertQAPage />} />
                         <Route path="/news" element={<NewsPage />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>

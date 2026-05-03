@@ -55,29 +55,23 @@ export function AppSidebar() {
   const handleNavClick = (url: string, featureTitle?: string) => {
     if (url === "/" || url === "/auth") {
       navigate(url);
-      toggleSidebar();
       return;
     }
-    // Must be logged in for premium features
     if (!user) {
       navigate("/auth");
-      toggleSidebar();
       return;
     }
-    // Premium gate
     if (!canAccessPremium) {
       setSelectedFeature(featureTitle || "");
       setPremiumModal(true);
       return;
     }
     navigate(url);
-    toggleSidebar();
   };
 
   const handleSignOut = async () => {
     await signOut();
     navigate("/");
-    toggleSidebar();
   };
 
   return (

@@ -4,11 +4,11 @@ import { useApp } from "@/contexts/AppContext";
 import { useSidebar } from "@/components/ui/sidebar";
 import { Users, Home, Menu, MessageSquare, GraduationCap, Star, Heart, MessageCircle, UserPlus, CheckCircle2 } from "lucide-react";
 import { trackEvent } from "@/services/analytics";
+import { THREADS } from "@/data/communityMocks";
 
 type Tab = "groups" | "forum" | "experts" | "stories";
 
 interface Group { id: string; name: { en: string; ha: string }; desc: { en: string; ha: string }; members: number; emoji: string; }
-interface Thread { id: string; title: { en: string; ha: string }; author: string; replies: number; likes: number; tag: string; lastActive: string; }
 interface Expert { id: string; name: string; title: { en: string; ha: string }; specialty: { en: string; ha: string }; questions: number; verified: boolean; emoji: string; }
 interface Story { id: string; farmer: string; location: string; quote: { en: string; ha: string }; impact: { en: string; ha: string }; emoji: string; }
 
@@ -21,13 +21,7 @@ const GROUPS: Group[] = [
   { id: "6", name: { en: "Soil Health & Composting", ha: "Lafiyar Ƙasa & Taki" }, desc: { en: "Build organic matter, reduce fertilizer dependence sustainably.", ha: "Inganta ƙasa da rage dogaro kan taki." }, members: 1423, emoji: "🌱" },
 ];
 
-const THREADS: Thread[] = [
-  { id: "1", title: { en: "Best maize variety for late-season planting in Plateau?", ha: "Mafi kyawun nau'in masara don shukar ƙarshen lokaci a Plateau?" }, author: "Aisha M.", replies: 23, likes: 47, tag: "Maize", lastActive: "2h" },
-  { id: "2", title: { en: "Fall armyworm outbreak — what's working for you?", ha: "Barkewar Fall armyworm — me ke aiki?" }, author: "Musa B.", replies: 41, likes: 89, tag: "Pests", lastActive: "5h" },
-  { id: "3", title: { en: "Solar pump vs petrol pump for 2 hectares?", ha: "Famfon hasken rana vs na fetur?" }, author: "Chinedu O.", replies: 18, likes: 32, tag: "Irrigation", lastActive: "1d" },
-  { id: "4", title: { en: "Where to sell tomatoes during Jos glut?", ha: "Ina za a sayar da tumatir lokacin yalwa?" }, author: "Hauwa I.", replies: 12, likes: 28, tag: "Market", lastActive: "1d" },
-  { id: "5", title: { en: "Cowpea storage without chemicals — Triple bag method", ha: "Ajiye wake ba tare da magunguna ba — Hanyar buhu uku" }, author: "Yusuf K.", replies: 35, likes: 102, tag: "Storage", lastActive: "2d" },
-];
+
 
 const EXPERTS: Expert[] = [
   { id: "1", name: "Dr. Ibrahim Sani", title: { en: "Agronomist, ABU Zaria", ha: "Masanin Noma, ABU Zaria" }, specialty: { en: "Cereal crops, soil fertility", ha: "Hatsi, lafiyar ƙasa" }, questions: 184, verified: true, emoji: "👨‍🔬" },
@@ -88,19 +82,20 @@ const CommunityPage = () => {
 
       <div className="max-w-3xl mx-auto px-3 sm:px-5 py-5 space-y-4">
         {/* Tabs */}
-        <div className="grid grid-cols-4 gap-1.5 bg-muted/50 p-1.5 rounded-2xl">
+        <div className="grid grid-cols-4 gap-1 bg-muted/50 p-1 rounded-2xl">
           {tabs.map(t => {
             const Icon = t.icon;
+            const active = tab === t.id;
             return (
               <button
                 key={t.id}
                 onClick={() => setTab(t.id)}
-                className={`flex flex-col items-center gap-1 py-2 rounded-xl text-[11px] font-extrabold transition-all ${
-                  tab === t.id ? "bg-card text-primary shadow-sm" : "text-muted-foreground"
+                className={`flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-xl text-[10px] sm:text-[11px] font-extrabold transition-all min-w-0 ${
+                  active ? "bg-card text-primary shadow-sm" : "text-muted-foreground"
                 }`}
               >
-                <Icon className="w-4 h-4" />
-                <span className="hidden xs:inline sm:inline">{t.label[language]}</span>
+                <Icon className="w-4 h-4 flex-shrink-0" />
+                <span className="truncate w-full text-center leading-tight">{t.label[language]}</span>
               </button>
             );
           })}
@@ -146,7 +141,7 @@ const CommunityPage = () => {
               <MessageSquare className="w-6 h-6 text-primary" />
             </Link>
             {THREADS.map((th, i) => (
-              <div key={th.id} className="card-farm animate-fade-up" style={{ animationDelay: `${i * 40}ms` }}>
+              <Link key={th.id} to={`/community/forum/${th.id}`} className="card-farm block animate-fade-up hover:shadow-md transition-shadow" style={{ animationDelay: `${i * 40}ms` }}>
                 <div className="flex items-center gap-2 mb-1.5">
                   <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-accent/15 text-accent-foreground">{th.tag}</span>
                   <span className="text-[10px] font-bold text-muted-foreground">• {th.lastActive}</span>
@@ -159,7 +154,7 @@ const CommunityPage = () => {
                     <span className="inline-flex items-center gap-1"><MessageCircle className="w-3 h-3" /> {th.replies}</span>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}
@@ -182,7 +177,7 @@ const CommunityPage = () => {
                   <p className="text-xs font-medium mt-1">{e.specialty[language]}</p>
                   <p className="text-[11px] font-extrabold text-primary mt-1.5">{e.questions} {language === "en" ? "questions answered" : "tambayoyi an amsa"}</p>
                 </div>
-                <Link to="/chat" className="flex-shrink-0 px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-[11px] font-black active:scale-95">
+                <Link to="/community/qa" className="flex-shrink-0 px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-[11px] font-black active:scale-95">
                   {language === "en" ? "Ask" : "Tambaya"}
                 </Link>
               </div>
