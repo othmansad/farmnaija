@@ -141,7 +141,7 @@ const CommunityPage = () => {
               <MessageSquare className="w-6 h-6 text-primary" />
             </Link>
             {THREADS.map((th, i) => (
-              <div key={th.id} className="card-farm animate-fade-up" style={{ animationDelay: `${i * 40}ms` }}>
+              <Link key={th.id} to={`/community/forum/${th.id}`} className="card-farm block animate-fade-up hover:shadow-md transition-shadow" style={{ animationDelay: `${i * 40}ms` }}>
                 <div className="flex items-center gap-2 mb-1.5">
                   <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-accent/15 text-accent-foreground">{th.tag}</span>
                   <span className="text-[10px] font-bold text-muted-foreground">• {th.lastActive}</span>
@@ -154,7 +154,7 @@ const CommunityPage = () => {
                     <span className="inline-flex items-center gap-1"><MessageCircle className="w-3 h-3" /> {th.replies}</span>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}
