@@ -8,11 +8,12 @@ import FarmingTip from "@/components/FarmingTip";
 import CropRecommendations from "@/components/CropRecommendations";
 import SavedLocationsCard from "@/components/SavedLocationsCard";
 import AlertsCard from "@/components/AlertsCard";
-import { Bot, Rocket, Image as ImageIcon, Square, Sparkles } from "lucide-react";
+import { Bot, Rocket, Image as ImageIcon, Square, Sparkles, CalendarDays, Mail, Github, Twitter } from "lucide-react";
 import { useEffect, useState } from "react";
 import { trackEvent } from "@/services/analytics";
 import { useSidebar } from "@/components/ui/sidebar";
-import farmwiseBg from "@/assets/farmwise-bg.jpg";
+import { useAuth } from "@/contexts/AuthContext";
+import farmwiseBg from "@/assets/farmwise-logo-bg.jpg";
 import type { BgTheme } from "@/contexts/AppContext";
 
 const Index = () => {
