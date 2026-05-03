@@ -57,10 +57,14 @@ const Index = () => {
             className="fixed inset-0 -z-10 bg-center bg-cover bg-no-repeat"
             style={{ backgroundImage: `url(${farmwiseBg})` }}
           />
-          {/* Stronger overlay for legibility — both modes */}
+          {/* Brand-tinted overlay tuned to logo's deep green */}
           <div
             aria-hidden
-            className="fixed inset-0 -z-10 bg-background/92 dark:bg-background/94 backdrop-blur-md"
+            className="fixed inset-0 -z-10"
+            style={{
+              background:
+                "linear-gradient(180deg, hsl(148 50% 14% / 0.78) 0%, hsl(148 45% 10% / 0.88) 60%, hsl(var(--background) / 0.94) 100%)",
+            }}
           />
         </>
       )}
