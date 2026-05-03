@@ -4,11 +4,11 @@ import { useApp } from "@/contexts/AppContext";
 import { useSidebar } from "@/components/ui/sidebar";
 import { Users, Home, Menu, MessageSquare, GraduationCap, Star, Heart, MessageCircle, UserPlus, CheckCircle2 } from "lucide-react";
 import { trackEvent } from "@/services/analytics";
+import { THREADS } from "@/data/communityMocks";
 
 type Tab = "groups" | "forum" | "experts" | "stories";
 
 interface Group { id: string; name: { en: string; ha: string }; desc: { en: string; ha: string }; members: number; emoji: string; }
-interface Thread { id: string; title: { en: string; ha: string }; author: string; replies: number; likes: number; tag: string; lastActive: string; }
 interface Expert { id: string; name: string; title: { en: string; ha: string }; specialty: { en: string; ha: string }; questions: number; verified: boolean; emoji: string; }
 interface Story { id: string; farmer: string; location: string; quote: { en: string; ha: string }; impact: { en: string; ha: string }; emoji: string; }
 
