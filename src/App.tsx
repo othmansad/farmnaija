@@ -24,6 +24,7 @@ const CommunityPage = lazy(() => import("./pages/CommunityPage.tsx"));
 const ForumThreadPage = lazy(() => import("./pages/ForumThreadPage.tsx"));
 const ExpertQAPage = lazy(() => import("./pages/ExpertQAPage.tsx"));
 const NewsPage = lazy(() => import("./pages/NewsPage.tsx"));
+const Account = lazy(() => import("./pages/Account.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -60,6 +61,7 @@ const App = () => (
                         <Route path="/community/forum/:id" element={<ForumThreadPage />} />
                         <Route path="/community/qa" element={<ExpertQAPage />} />
                         <Route path="/news" element={<NewsPage />} />
+                        <Route path="/account" element={<Account />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>
                     </Suspense>

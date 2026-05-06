@@ -214,7 +214,10 @@ export function AppSidebar() {
             <>
               {user ? (
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2 bg-muted/50 rounded-xl p-2.5">
+                  <button
+                    onClick={() => navigate("/account")}
+                    className={`w-full flex items-center gap-2 bg-muted/50 hover:bg-muted rounded-xl p-2.5 transition-colors text-left ${location.pathname === "/account" ? "ring-1 ring-primary/40" : ""}`}
+                  >
                     <div className="bg-primary/10 p-1.5 rounded-lg">
                       <User className="w-3.5 h-3.5 text-primary" />
                     </div>
@@ -222,9 +225,12 @@ export function AppSidebar() {
                       <p className="text-[11px] font-bold truncate text-foreground">
                         {user.user_metadata?.full_name || user.email?.split("@")[0]}
                       </p>
-                      <p className="text-[9px] text-muted-foreground truncate">{user.email}</p>
+                      <p className="text-[9px] text-muted-foreground truncate">
+                        {language === "en" ? "Manage account" : "Sarrafa asusu"}
+                      </p>
                     </div>
-                  </div>
+                    <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
+                  </button>
                   <button
                     onClick={handleSignOut}
                     className="w-full flex items-center justify-center gap-1.5 text-[11px] font-bold text-destructive hover:bg-destructive/10 rounded-xl py-2 transition-colors"
