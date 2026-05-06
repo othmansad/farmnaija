@@ -103,7 +103,12 @@ const Index = () => {
           <HomeSkeleton />
         ) : (
           <>
+            {/* Quick access to all premium features */}
             <div className="animate-fade-up mb-3 sm:mb-4" style={{ animationDelay: "0ms" }}>
+              <QuickFeatures />
+            </div>
+
+            <div className="animate-fade-up mb-3 sm:mb-4" style={{ animationDelay: "40ms" }}>
               <AlertsCard />
             </div>
 
