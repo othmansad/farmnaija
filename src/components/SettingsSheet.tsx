@@ -16,9 +16,17 @@ import { useAuth } from "@/contexts/AuthContext";
 
 const SettingsSheet = () => {
   const { language, setLanguage, stateId, setStateId, lga, setLga, stateName } = useApp();
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains("dark"));
   const currentState = states[stateId];
+
+  const handleSignOut = async () => {
+    setOpen(false);
+    await signOut();
+    navigate("/");
+  };
 
   useEffect(() => {
     if (isDark) {
