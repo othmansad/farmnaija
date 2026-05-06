@@ -13,14 +13,18 @@ import { useEffect, useState } from "react";
 import { trackEvent } from "@/services/analytics";
 import { useSidebar } from "@/components/ui/sidebar";
 import { useAuth } from "@/contexts/AuthContext";
+import { QuickFeatures } from "@/components/QuickFeatures";
 import farmwiseBg from "@/assets/farmwise-logo-bg.jpg";
 import type { BgTheme } from "@/contexts/AppContext";
 
 const Index = () => {
   const { language, stateId, bgTheme, setBgTheme } = useApp();
-  const { toggleSidebar } = useSidebar();
+  const { setOpen } = useSidebar();
   const { user } = useAuth();
+
   const [booting, setBooting] = useState(true);
+
+  const peekSidebar = () => setOpen(true);
 
   useEffect(() => {
     trackEvent("page_view", "dashboard");
@@ -99,7 +103,12 @@ const Index = () => {
           <HomeSkeleton />
         ) : (
           <>
+            {/* Quick access to all premium features */}
             <div className="animate-fade-up mb-3 sm:mb-4" style={{ animationDelay: "0ms" }}>
+              <QuickFeatures />
+            </div>
+
+            <div className="animate-fade-up mb-3 sm:mb-4" style={{ animationDelay: "40ms" }}>
               <AlertsCard />
             </div>
 
@@ -138,6 +147,7 @@ const Index = () => {
           {user ? (
             <Link
               to="/planner"
+              onClick={peekSidebar}
               className="gradient-harvest text-harvest-foreground rounded-2xl shadow-lg active:scale-[0.97] transition-all duration-200 flex items-center justify-center gap-2 py-3.5 sm:py-4 px-4 sm:px-5"
               style={{ boxShadow: "0 6px 24px -4px hsl(38 92% 50% / 0.45)" }}
             >
@@ -149,6 +159,7 @@ const Index = () => {
           ) : (
             <Link
               to="/auth"
+              onClick={peekSidebar}
               className="gradient-harvest text-harvest-foreground rounded-2xl shadow-lg active:scale-[0.97] transition-all duration-200 flex items-center justify-center gap-2 py-3.5 sm:py-4 px-4 sm:px-5"
               style={{ boxShadow: "0 6px 24px -4px hsl(38 92% 50% / 0.45)" }}
             >
