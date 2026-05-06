@@ -22,11 +22,9 @@ const Index = () => {
   const { setOpen } = useSidebar();
   const { user } = useAuth();
 
-  const handlePrimaryAction = (path: string) => {
-    // Briefly peek the sidebar so users see the full menu of features
-    setOpen(true);
-  };
   const [booting, setBooting] = useState(true);
+
+  const peekSidebar = () => setOpen(true);
 
   useEffect(() => {
     trackEvent("page_view", "dashboard");
