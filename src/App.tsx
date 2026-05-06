@@ -61,6 +61,7 @@ const App = () => (
                         <Route path="/community/forum/:id" element={<ForumThreadPage />} />
                         <Route path="/community/qa" element={<ExpertQAPage />} />
                         <Route path="/news" element={<NewsPage />} />
+                        <Route path="/account" element={<Account />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>
                     </Suspense>
