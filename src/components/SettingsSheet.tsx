@@ -134,6 +134,48 @@ const SettingsSheet = () => {
           {/* Divider */}
           <div className="border-t" />
 
+          {/* Account */}
+          {user ? (
+            <>
+              <Link
+                to="/account"
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-between bg-muted/50 rounded-2xl px-4 py-3.5 active:scale-[0.98] transition-all duration-200"
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="bg-primary/10 p-2 rounded-xl">
+                    <UserIcon className="w-4 h-4 text-primary" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-sm font-extrabold truncate">
+                      {user.user_metadata?.full_name || user.email?.split("@")[0]}
+                    </div>
+                    <div className="text-xs text-muted-foreground font-medium truncate">
+                      {language === "en" ? "Manage account" : "Sarrafa asusu"}
+                    </div>
+                  </div>
+                </div>
+                <ChevronRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              </Link>
+              <button
+                onClick={handleSignOut}
+                className="w-full flex items-center justify-center gap-2 text-sm font-extrabold text-destructive hover:bg-destructive/10 rounded-2xl py-3 transition-colors"
+              >
+                <LogOut className="w-4 h-4" />
+                {language === "en" ? "Sign Out" : "Fita"}
+              </button>
+            </>
+          ) : (
+            <Link
+              to="/auth"
+              onClick={() => setOpen(false)}
+              className="flex items-center justify-center gap-2 bg-primary text-primary-foreground rounded-2xl py-3 text-sm font-black active:scale-[0.98] transition-all"
+            >
+              <LogIn className="w-4 h-4" />
+              {language === "en" ? "Sign In" : "Shiga"}
+            </Link>
+          )}
+
           {/* Admin link */}
           <Link
             to="/admin"
