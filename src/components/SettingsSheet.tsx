@@ -8,10 +8,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Settings, Globe, MapPin, Shield, ChevronRight, Moon, Sun } from "lucide-react";
+import { Settings, Globe, MapPin, Shield, ChevronRight, Moon, Sun, User as UserIcon, LogOut, LogIn } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const SettingsSheet = () => {
   const { language, setLanguage, stateId, setStateId, lga, setLga, stateName } = useApp();
