@@ -13,13 +13,19 @@ import { useEffect, useState } from "react";
 import { trackEvent } from "@/services/analytics";
 import { useSidebar } from "@/components/ui/sidebar";
 import { useAuth } from "@/contexts/AuthContext";
+import { QuickFeatures } from "@/components/QuickFeatures";
 import farmwiseBg from "@/assets/farmwise-logo-bg.jpg";
 import type { BgTheme } from "@/contexts/AppContext";
 
 const Index = () => {
   const { language, stateId, bgTheme, setBgTheme } = useApp();
-  const { toggleSidebar } = useSidebar();
+  const { setOpen } = useSidebar();
   const { user } = useAuth();
+
+  const handlePrimaryAction = (path: string) => {
+    // Briefly peek the sidebar so users see the full menu of features
+    setOpen(true);
+  };
   const [booting, setBooting] = useState(true);
 
   useEffect(() => {
