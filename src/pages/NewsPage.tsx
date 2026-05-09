@@ -26,7 +26,7 @@ const CAT_META: Record<Exclude<Category, "all">, { icon: typeof Newspaper; color
   market: { icon: TrendingUp, color: "text-harvest", bg: "bg-harvest/15", label: { en: "Market", ha: "Kasuwa" } },
 };
 
-const CACHE_KEY = "farmwise_news_cache_v1";
+const CACHE_KEY = "farmwise_news_cache_v2";
 const CACHE_TTL_MS = 15 * 60 * 1000; // 15 min
 
 const NewsPage = () => {
