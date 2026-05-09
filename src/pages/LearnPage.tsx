@@ -234,19 +234,28 @@ const LearnPage = () => {
             </Dialog>
           </TabsContent>
 
-          <TabsContent value="videos" className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+          <TabsContent value="videos" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
             {VIDEOS.map((v) => (
-              <a key={v.id} href={v.url} target="_blank" rel="noopener noreferrer" className="block">
-                <Card className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
-                  <div className="aspect-video bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center relative">
-                    <span className="text-6xl">{v.thumb}</span>
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 hover:bg-black/30 transition-colors">
-                      <PlayCircle className="w-12 h-12 text-white opacity-0 hover:opacity-100 transition-opacity" />
+              <a key={v.id} href={v.url} target="_blank" rel="noopener noreferrer" className="block group">
+                <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group-hover:-translate-y-0.5">
+                  <div className="aspect-video relative overflow-hidden bg-muted">
+                    <img
+                      src={v.thumb}
+                      alt={language === "en" ? v.title : v.titleHa}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0" />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="bg-white/95 rounded-full p-3 shadow-2xl scale-90 group-hover:scale-100 transition-transform">
+                        <PlayCircle className="w-8 h-8 text-primary" fill="currentColor" />
+                      </div>
                     </div>
-                    <Badge className="absolute bottom-2 right-2 bg-black/70 text-white text-[10px]">{v.duration}</Badge>
+                    <Badge className="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] font-bold border-0">{v.duration}</Badge>
                   </div>
                   <CardContent className="p-3">
-                    <p className="font-black text-sm leading-tight">{language === "en" ? v.title : v.titleHa}</p>
+                    <p className="font-black text-sm leading-tight line-clamp-2">{language === "en" ? v.title : v.titleHa}</p>
                     <p className="text-[10px] text-muted-foreground font-semibold mt-1">{v.channel}</p>
                   </CardContent>
                 </Card>
