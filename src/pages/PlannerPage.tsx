@@ -433,6 +433,11 @@ const PlannerPage = () => {
                   ))
                 )}
               </TabsContent>
+
+              {/* ===== AI PLAN TAB ===== */}
+              <TabsContent value="ai">
+                <AIPlanGenerator />
+              </TabsContent>
             </>
           )}
         </Tabs>
