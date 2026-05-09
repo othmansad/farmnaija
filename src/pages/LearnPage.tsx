@@ -70,12 +70,12 @@ const GUIDES: Guide[] = [
 ];
 
 const VIDEOS: Video[] = [
-  { id: "v1", title: "Modern Maize Farming in Nigeria", titleHa: "Shuka Masara ta Zamani", channel: "AgriTV Nigeria", duration: "12:34", thumb: "🌽", url: "https://www.youtube.com/results?search_query=maize+farming+nigeria" },
-  { id: "v2", title: "Tomato Greenhouse Setup", titleHa: "Shirya Gidan Tumatir", channel: "FarmHub Africa", duration: "18:22", thumb: "🍅", url: "https://www.youtube.com/results?search_query=tomato+greenhouse+nigeria" },
-  { id: "v3", title: "Poultry Brooding First 4 Weeks", titleHa: "Kiwon Kaji Sati 4", channel: "PoultryPro NG", duration: "15:08", thumb: "🐓", url: "https://www.youtube.com/results?search_query=poultry+brooding+nigeria" },
-  { id: "v4", title: "Cocoa Pod Disease Control", titleHa: "Maganin Cutar Koko", channel: "CocoaFarmers", duration: "9:41", thumb: "🍫", url: "https://www.youtube.com/results?search_query=cocoa+disease+control" },
-  { id: "v5", title: "Fish Pond Construction", titleHa: "Gina Tafkin Kifi", channel: "AquaNaija", duration: "22:15", thumb: "🐟", url: "https://www.youtube.com/results?search_query=fish+pond+construction+nigeria" },
-  { id: "v6", title: "Organic Compost Making", titleHa: "Yin Taki na Halitta", channel: "GreenFarm", duration: "11:50", thumb: "🌱", url: "https://www.youtube.com/results?search_query=organic+compost+making" },
+  { id: "v1", title: "Modern Maize Farming in Nigeria", titleHa: "Shuka Masara ta Zamani", channel: "AgriTV Nigeria", duration: "12:34", thumb: "https://images.unsplash.com/photo-1601593768793-9ab7e7c8c4ec?w=600&q=70&auto=format&fit=crop", url: "https://www.youtube.com/results?search_query=maize+farming+nigeria" },
+  { id: "v2", title: "Tomato Greenhouse Setup", titleHa: "Shirya Gidan Tumatir", channel: "FarmHub Africa", duration: "18:22", thumb: "https://images.unsplash.com/photo-1592841200221-a6898f307baa?w=600&q=70&auto=format&fit=crop", url: "https://www.youtube.com/results?search_query=tomato+greenhouse+nigeria" },
+  { id: "v3", title: "Poultry Brooding First 4 Weeks", titleHa: "Kiwon Kaji Sati 4", channel: "PoultryPro NG", duration: "15:08", thumb: "https://images.unsplash.com/photo-1612170153139-6f881ff067e0?w=600&q=70&auto=format&fit=crop", url: "https://www.youtube.com/results?search_query=poultry+brooding+nigeria" },
+  { id: "v4", title: "Cocoa Pod Disease Control", titleHa: "Maganin Cutar Koko", channel: "CocoaFarmers", duration: "9:41", thumb: "https://images.unsplash.com/photo-1599639957043-f3aa5c986398?w=600&q=70&auto=format&fit=crop", url: "https://www.youtube.com/results?search_query=cocoa+disease+control" },
+  { id: "v5", title: "Fish Pond Construction", titleHa: "Gina Tafkin Kifi", channel: "AquaNaija", duration: "22:15", thumb: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=70&auto=format&fit=crop", url: "https://www.youtube.com/results?search_query=fish+pond+construction+nigeria" },
+  { id: "v6", title: "Organic Compost Making", titleHa: "Yin Taki na Halitta", channel: "GreenFarm", duration: "11:50", thumb: "https://images.unsplash.com/photo-1592991538534-00972b6f59ad?w=600&q=70&auto=format&fit=crop", url: "https://www.youtube.com/results?search_query=organic+compost+making" },
 ];
 
 const TIPS: Tip[] = [
