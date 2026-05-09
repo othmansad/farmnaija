@@ -88,6 +88,7 @@ const TIPS: Tip[] = [
 ];
 
 const LearnPage = () => {
+  const [openGuide, setOpenGuide] = useState<Guide | null>(null);
   const { language } = useApp();
   const { canAccessPremium } = usePremium();
   const { toggleSidebar } = useSidebar();
@@ -150,36 +151,87 @@ const LearnPage = () => {
             <TabsTrigger value="tips" className="text-xs font-bold gap-1.5"><Lightbulb className="w-3.5 h-3.5" />{language === "en" ? "Tips" : "Shawarwari"}</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="guides" className="space-y-3 mt-4">
-            <Accordion type="single" collapsible className="space-y-2">
-              {filteredGuides.map((g) => (
-                <AccordionItem key={g.id} value={g.id} className="border-0">
-                  <Card className="overflow-hidden">
-                    <AccordionTrigger className="px-4 py-3 hover:no-underline">
-                      <div className="flex items-center gap-3 flex-1 text-left">
-                        <span className="text-3xl">{g.emoji}</span>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-black text-sm">{language === "en" ? g.title : g.titleHa}</p>
+          <TabsContent value="guides" className="mt-4">
+            {/* Bookshelf */}
+            <div className="relative bg-gradient-to-b from-amber-900/10 via-amber-800/5 to-amber-950/15 rounded-2xl p-4 sm:p-6 shadow-inner">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
+                {filteredGuides.map((g, idx) => {
+                  const spines = [
+                    "from-rose-700 to-rose-900",
+                    "from-emerald-700 to-emerald-900",
+                    "from-amber-600 to-amber-800",
+                    "from-sky-700 to-sky-900",
+                    "from-violet-700 to-violet-900",
+                    "from-orange-600 to-orange-800",
+                  ];
+                  const grad = spines[idx % spines.length];
+                  return (
+                    <button
+                      key={g.id}
+                      onClick={() => setOpenGuide(g)}
+                      className="group relative aspect-[2/3] rounded-r-md rounded-l-sm overflow-hidden shadow-[6px_6px_18px_-6px_rgba(0,0,0,0.45)] hover:-translate-y-1 hover:rotate-[-1deg] transition-all duration-300"
+                    >
+                      <div className={`absolute inset-0 bg-gradient-to-br ${grad}`} />
+                      {/* Book spine */}
+                      <div className="absolute inset-y-0 left-0 w-2 bg-black/30" />
+                      {/* Pages edge */}
+                      <div className="absolute inset-y-1 right-0 w-1 bg-amber-50/90" />
+                      {/* Cover content */}
+                      <div className="relative h-full flex flex-col justify-between p-2.5 sm:p-3 text-left">
+                        <div>
+                          <Badge className="bg-white/20 text-white text-[9px] backdrop-blur-sm border-0">{g.category}</Badge>
+                          <p className="text-2xl sm:text-3xl mt-2">{g.emoji}</p>
+                        </div>
+                        <div>
+                          <p className="font-black text-[11px] sm:text-sm text-white leading-tight line-clamp-3 drop-shadow">
+                            {language === "en" ? g.title : g.titleHa}
+                          </p>
+                          <p className="text-[9px] text-white/75 font-bold mt-1">📖 {g.readTime}</p>
+                        </div>
+                      </div>
+                      {/* Glossy highlight */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/15 via-transparent to-black/20 pointer-events-none" />
+                    </button>
+                  );
+                })}
+              </div>
+              {/* Wooden shelf */}
+              <div className="mt-4 h-3 rounded-sm bg-gradient-to-b from-amber-900/40 to-amber-950/60 shadow-md" />
+              {filteredGuides.length === 0 && (
+                <div className="text-center py-10">
+                  <p className="text-sm text-muted-foreground font-semibold">{language === "en" ? "No guides match your search" : "Babu jagora"}</p>
+                </div>
+              )}
+            </div>
+
+            <Dialog open={!!openGuide} onOpenChange={(o) => !o && setOpenGuide(null)}>
+              <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto bg-amber-50 dark:bg-stone-900 border-amber-200 dark:border-stone-700">
+                {openGuide && (
+                  <>
+                    <DialogHeader>
+                      <div className="flex items-center gap-3">
+                        <span className="text-4xl">{openGuide.emoji}</span>
+                        <div>
+                          <DialogTitle className="text-left font-black">{language === "en" ? openGuide.title : openGuide.titleHa}</DialogTitle>
                           <div className="flex items-center gap-2 mt-1">
-                            <Badge variant="secondary" className="text-[10px] h-4 px-1.5">{g.category}</Badge>
-                            <span className="text-[10px] text-muted-foreground font-semibold">{g.readTime}</span>
+                            <Badge variant="secondary" className="text-[10px]">{openGuide.category}</Badge>
+                            <span className="text-[10px] text-muted-foreground font-semibold">📖 {openGuide.readTime}</span>
                           </div>
                         </div>
                       </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-4">
-                      <p className="text-sm font-semibold text-muted-foreground mb-2">{language === "en" ? g.summary : g.summaryHa}</p>
-                      <p className="text-sm leading-relaxed">{language === "en" ? g.content : g.contentHa}</p>
-                    </AccordionContent>
-                  </Card>
-                </AccordionItem>
-              ))}
-              {filteredGuides.length === 0 && (
-                <Card className="p-8 text-center">
-                  <p className="text-sm text-muted-foreground font-semibold">{language === "en" ? "No guides match your search" : "Babu jagora"}</p>
-                </Card>
-              )}
-            </Accordion>
+                    </DialogHeader>
+                    <div className="mt-2 prose prose-sm dark:prose-invert max-w-none">
+                      <p className="font-bold text-foreground/90 italic border-l-4 border-amber-600 pl-3">
+                        {language === "en" ? openGuide.summary : openGuide.summaryHa}
+                      </p>
+                      <p className="text-sm leading-relaxed mt-4 first-letter:text-4xl first-letter:font-black first-letter:mr-1 first-letter:float-left first-letter:text-amber-700">
+                        {language === "en" ? openGuide.content : openGuide.contentHa}
+                      </p>
+                    </div>
+                  </>
+                )}
+              </DialogContent>
+            </Dialog>
           </TabsContent>
 
           <TabsContent value="videos" className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
