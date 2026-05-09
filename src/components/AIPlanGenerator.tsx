@@ -22,7 +22,7 @@ interface FarmPlan {
 const CROP_OPTIONS = ["Maize", "Rice", "Cassava", "Yam", "Tomato", "Pepper", "Groundnut", "Sorghum", "Millet", "Cowpea", "Cocoa", "Soybean"];
 
 export const AIPlanGenerator = () => {
-  const { language, location } = useApp();
+  const { language, lga, stateName } = useApp();
   const en = language === "en";
   const [crop, setCrop] = useState("Maize");
   const [area, setArea] = useState("1 hectare");
@@ -38,7 +38,7 @@ export const AIPlanGenerator = () => {
         body: {
           crop,
           area,
-          location: location ? `${location.lga}, ${location.state}` : "Nigeria",
+          location: lga ? `${lga.name}, ${stateName}` : "Nigeria",
           season,
           language,
         },
