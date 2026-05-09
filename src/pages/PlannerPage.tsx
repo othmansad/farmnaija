@@ -17,8 +17,9 @@ import { format } from "date-fns";
 import { toast } from "sonner";
 import {
   CalendarDays, Home, Menu, Plus, Trash2, Check, CalendarIcon,
-  Sprout, ListTodo, BarChart3, Loader2, ChevronDown, Leaf, AlertTriangle, Sun, Droplets
+  Sprout, ListTodo, BarChart3, Loader2, ChevronDown, Leaf, AlertTriangle, Sun, Droplets, Sparkles
 } from "lucide-react";
+import { AIPlanGenerator } from "@/components/AIPlanGenerator";
 
 // --- Types ---
 interface PlantingEvent {
@@ -205,17 +206,20 @@ const PlannerPage = () => {
         </button>
       </header>
 
-      <div className="max-w-2xl mx-auto px-3 py-4">
+      <div className="max-w-4xl mx-auto px-3 sm:px-5 py-4 sm:py-6">
         <Tabs value={tab} onValueChange={setTab}>
-          <TabsList className="w-full grid grid-cols-3 mb-4">
-            <TabsTrigger value="calendar" className="text-xs font-bold gap-1">
-              <CalendarDays className="w-3.5 h-3.5" /> {en ? "Calendar" : "Kalanda"}
+          <TabsList className="w-full grid grid-cols-4 mb-4 h-auto p-1">
+            <TabsTrigger value="calendar" className="text-[11px] sm:text-xs font-bold gap-1 py-2 flex-col sm:flex-row">
+              <CalendarDays className="w-3.5 h-3.5" /> <span className="truncate">{en ? "Calendar" : "Kalanda"}</span>
             </TabsTrigger>
-            <TabsTrigger value="tasks" className="text-xs font-bold gap-1">
-              <ListTodo className="w-3.5 h-3.5" /> {en ? "Tasks" : "Ayyuka"}
+            <TabsTrigger value="tasks" className="text-[11px] sm:text-xs font-bold gap-1 py-2 flex-col sm:flex-row">
+              <ListTodo className="w-3.5 h-3.5" /> <span className="truncate">{en ? "Tasks" : "Ayyuka"}</span>
             </TabsTrigger>
-            <TabsTrigger value="crops" className="text-xs font-bold gap-1">
-              <Sprout className="w-3.5 h-3.5" /> {en ? "Crops" : "Amfanin Gona"}
+            <TabsTrigger value="crops" className="text-[11px] sm:text-xs font-bold gap-1 py-2 flex-col sm:flex-row">
+              <Sprout className="w-3.5 h-3.5" /> <span className="truncate">{en ? "Crops" : "Gona"}</span>
+            </TabsTrigger>
+            <TabsTrigger value="ai" className="text-[11px] sm:text-xs font-bold gap-1 py-2 flex-col sm:flex-row data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-accent data-[state=active]:text-primary-foreground">
+              <Sparkles className="w-3.5 h-3.5" /> <span className="truncate">{en ? "AI Plan" : "AI"}</span>
             </TabsTrigger>
           </TabsList>
 
@@ -428,6 +432,11 @@ const PlannerPage = () => {
                     </div>
                   ))
                 )}
+              </TabsContent>
+
+              {/* ===== AI PLAN TAB ===== */}
+              <TabsContent value="ai">
+                <AIPlanGenerator />
               </TabsContent>
             </>
           )}
