@@ -126,7 +126,7 @@ const LearnPage = () => {
         </button>
       </header>
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-5 space-y-4">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-5 space-y-4 pb-20">
         <div>
           <h1 className="text-2xl font-black tracking-tight">{language === "en" ? "Farming Knowledge" : "Ilimin Noma"}</h1>
           <p className="text-xs text-muted-foreground font-semibold mt-1">
