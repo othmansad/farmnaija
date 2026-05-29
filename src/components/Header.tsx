@@ -28,23 +28,25 @@ const Header = () => {
             <span className="text-3xl drop-shadow-sm">🌾</span>
             <span className="text-primary-foreground font-black text-xl tracking-tight drop-shadow-sm">{t("appName", language)}</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <button
               onClick={toggleSidebar}
-              className="flex items-center gap-1.5 gradient-harvest text-harvest-foreground text-xs font-black px-3.5 py-2 rounded-full active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg"
+              className="hidden sm:inline-flex items-center gap-1.5 gradient-harvest text-harvest-foreground text-xs font-black px-3.5 py-2 rounded-full active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg"
             >
               <Rocket className="w-3.5 h-3.5" />
               {language === "en" ? "Get Started" : "Fara"}
             </button>
             <button
               onClick={() => setLanguage(language === "en" ? "ha" : "en")}
-              className="flex items-center gap-1.5 bg-primary-foreground/20 backdrop-blur-sm text-primary-foreground text-xs font-extrabold px-3 py-2 rounded-full active:scale-95 transition-all duration-200 hover:bg-primary-foreground/30"
+              className="flex items-center gap-1 bg-primary-foreground/20 backdrop-blur-sm text-primary-foreground text-[11px] sm:text-xs font-extrabold px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full active:scale-95 transition-all duration-200 hover:bg-primary-foreground/30"
+              aria-label={language === "en" ? "Switch language" : "Canza yare"}
             >
               <Globe className="w-3.5 h-3.5" />
               {language === "en" ? "HA" : "EN"}
             </button>
             <SettingsSheet />
           </div>
+
         </div>
         <div className="text-primary-foreground font-extrabold text-lg tracking-tight">
           {getGreeting(language)}

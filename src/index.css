@@ -145,4 +145,14 @@
   .icon-badge:hover {
     transform: scale(1.05);
   }
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+
+
 }
