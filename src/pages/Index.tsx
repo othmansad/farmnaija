@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useApp } from "@/contexts/AppContext";
+import { t } from "@/data/translations";
 import Header from "@/components/Header";
 import LocationSelector from "@/components/LocationSelector";
 import WeatherCard from "@/components/WeatherCard";
