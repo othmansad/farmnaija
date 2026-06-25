@@ -182,22 +182,113 @@ const Index = () => {
       </div>
 
       {/* Footer */}
-      <footer className="relative z-10 mt-auto px-4 pb-28 pt-6 text-center">
-        <div className="max-w-3xl mx-auto border-t border-border/40 pt-5 space-y-3">
-          <div className="flex justify-center gap-4 text-muted-foreground">
-            <a href="mailto:hello@farmwise.ng" aria-label="Email" className="hover:text-primary transition-colors"><Mail className="w-4 h-4" /></a>
-            <a href="#" aria-label="Twitter" className="hover:text-primary transition-colors"><Twitter className="w-4 h-4" /></a>
-            <a href="#" aria-label="GitHub" className="hover:text-primary transition-colors"><Github className="w-4 h-4" /></a>
+      <footer className="relative z-10 mt-12 pb-28 pt-10 px-4 sm:px-6 bg-primary text-primary-foreground">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+            {/* Brand */}
+            <div className="col-span-2 md:col-span-1 space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">🌾</span>
+                <span className="font-display italic text-2xl leading-none">
+                  {t("appName", language)}
+                </span>
+              </div>
+              <p className="text-[12px] font-medium text-primary-foreground/75 leading-relaxed">
+                {language === "en"
+                  ? "Smart farming companion built for Nigerian farmers — weather, planning, market insights, and expert advice in one place."
+                  : "Abokin noma mai hankali da aka gina don manoman Najeriya — yanayi, tsari, da shawarwarin gwani a wuri ɗaya."}
+              </p>
+              <div className="flex gap-2 pt-1">
+                <a href="mailto:hello@farmwise.ng" aria-label="Email" className="w-9 h-9 rounded-full bg-primary-foreground/10 hover:bg-accent hover:text-accent-foreground flex items-center justify-center transition-all">
+                  <Mail className="w-4 h-4" />
+                </a>
+                <a href="#" aria-label="Twitter" className="w-9 h-9 rounded-full bg-primary-foreground/10 hover:bg-accent hover:text-accent-foreground flex items-center justify-center transition-all">
+                  <Twitter className="w-4 h-4" />
+                </a>
+                <a href="#" aria-label="GitHub" className="w-9 h-9 rounded-full bg-primary-foreground/10 hover:bg-accent hover:text-accent-foreground flex items-center justify-center transition-all">
+                  <Github className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+
+            {/* Explore */}
+            <div className="space-y-3">
+              <h4 className="font-display italic text-base text-accent">
+                {language === "en" ? "Explore" : "Bincika"}
+              </h4>
+              <ul className="space-y-2 text-[12px] font-semibold text-primary-foreground/80">
+                <li><Link to="/planner" className="hover:text-accent transition-colors">{language === "en" ? "Farm Planner" : "Tsarin Gona"}</Link></li>
+                <li><Link to="/analytics" className="hover:text-accent transition-colors">{language === "en" ? "Analytics" : "Nazari"}</Link></li>
+                <li><Link to="/learn" className="hover:text-accent transition-colors">{language === "en" ? "Learn" : "Koyi"}</Link></li>
+                <li><Link to="/news" className="hover:text-accent transition-colors">{language === "en" ? "News" : "Labarai"}</Link></li>
+              </ul>
+            </div>
+
+            {/* Community */}
+            <div className="space-y-3">
+              <h4 className="font-display italic text-base text-accent">
+                {language === "en" ? "Community" : "Al'umma"}
+              </h4>
+              <ul className="space-y-2 text-[12px] font-semibold text-primary-foreground/80">
+                <li><Link to="/community" className="hover:text-accent transition-colors">{language === "en" ? "Farmer Groups" : "Ƙungiyoyi"}</Link></li>
+                <li><Link to="/community" className="hover:text-accent transition-colors">{language === "en" ? "Forum" : "Tattaunawa"}</Link></li>
+                <li><Link to="/community" className="hover:text-accent transition-colors">{language === "en" ? "Expert Q&A" : "Gwani Q&A"}</Link></li>
+                <li><Link to="/chat" className="hover:text-accent transition-colors">{language === "en" ? "AI Assistant" : "Mataimaki AI"}</Link></li>
+              </ul>
+            </div>
+
+            {/* Account */}
+            <div className="space-y-3">
+              <h4 className="font-display italic text-base text-accent">
+                {language === "en" ? "Account" : "Asusu"}
+              </h4>
+              <ul className="space-y-2 text-[12px] font-semibold text-primary-foreground/80">
+                {user ? (
+                  <li><Link to="/account" className="hover:text-accent transition-colors">{language === "en" ? "My Account" : "Asusuna"}</Link></li>
+                ) : (
+                  <li><Link to="/auth" className="hover:text-accent transition-colors">{language === "en" ? "Sign In" : "Shiga"}</Link></li>
+                )}
+                <li><a href="#" className="hover:text-accent transition-colors">{language === "en" ? "Pro Plans" : "Tsare-tsare"}</a></li>
+                <li><a href="#" className="hover:text-accent transition-colors">{language === "en" ? "Privacy" : "Sirri"}</a></li>
+                <li><a href="#" className="hover:text-accent transition-colors">{language === "en" ? "Terms" : "Sharuɗɗa"}</a></li>
+              </ul>
+            </div>
           </div>
-          <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-[11px] font-bold text-muted-foreground">
-            <Link to="/learn" className="hover:text-primary">{language === "en" ? "Learn" : "Koyi"}</Link>
-            <Link to="/community" className="hover:text-primary">{language === "en" ? "Community" : "Al'umma"}</Link>
-            <Link to="/news" className="hover:text-primary">{language === "en" ? "News" : "Labarai"}</Link>
-            <Link to="/analytics" className="hover:text-primary">{language === "en" ? "Analytics" : "Nazari"}</Link>
+
+          {/* Newsletter strip */}
+          <div className="border-t border-primary-foreground/15 pt-6 pb-5 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+            <div>
+              <p className="font-display italic text-lg leading-tight">
+                {language === "en" ? "Grow with us." : "Yi girma da mu."}
+              </p>
+              <p className="text-[11px] font-semibold text-primary-foreground/65 uppercase tracking-[0.18em]">
+                {language === "en" ? "Weekly tips · zero spam" : "Shawara mako-mako"}
+              </p>
+            </div>
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              className="flex gap-2 w-full sm:w-auto"
+            >
+              <input
+                type="email"
+                required
+                placeholder={language === "en" ? "your@email.com" : "imel@misali.com"}
+                className="flex-1 sm:w-64 px-4 py-2.5 rounded-full bg-primary-foreground/10 placeholder:text-primary-foreground/40 text-[13px] font-semibold border border-primary-foreground/15 focus:outline-none focus:ring-2 focus:ring-accent"
+              />
+              <button
+                type="submit"
+                className="px-5 py-2.5 rounded-full gradient-harvest text-harvest-foreground text-[11px] font-black uppercase tracking-[0.14em] active:scale-95 transition-all"
+              >
+                {language === "en" ? "Join" : "Shiga"}
+              </button>
+            </form>
           </div>
-          <p className="text-[10px] font-semibold text-muted-foreground">
-            🌾 © {new Date().getFullYear()} FarmWise Nigeria · {language === "en" ? "Built for Nigerian farmers" : "An gina don manoman Najeriya"}
-          </p>
+
+          {/* Bottom bar */}
+          <div className="border-t border-primary-foreground/15 pt-5 flex flex-col sm:flex-row gap-2 items-center justify-between text-[11px] font-bold text-primary-foreground/60">
+            <p>© {new Date().getFullYear()} FarmWise Nigeria · {language === "en" ? "All rights reserved" : "Duk haƙƙoƙin an kiyaye"}</p>
+            <p className="flex items-center gap-1">🌾 {language === "en" ? "Built for Nigerian farmers" : "An gina don manoman Najeriya"}</p>
+          </div>
         </div>
       </footer>
     </div>
