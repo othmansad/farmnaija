@@ -41,10 +41,10 @@ const PlannerPage = lazyWithRetry(() => import("./pages/PlannerPage.tsx"));
 const AnalyticsPage = lazyWithRetry(() => import("./pages/AnalyticsPage.tsx"));
 const LearnPage = lazyWithRetry(() => import("./pages/LearnPage.tsx"));
 const CommunityPage = lazyWithRetry(() => import("./pages/CommunityPage.tsx"));
-const ForumThreadPage = lazy(() => import("./pages/ForumThreadPage.tsx"));
-const ExpertQAPage = lazy(() => import("./pages/ExpertQAPage.tsx"));
-const NewsPage = lazy(() => import("./pages/NewsPage.tsx"));
-const Account = lazy(() => import("./pages/Account.tsx"));
+const ForumThreadPage = lazyWithRetry(() => import("./pages/ForumThreadPage.tsx"));
+const ExpertQAPage = lazyWithRetry(() => import("./pages/ExpertQAPage.tsx"));
+const NewsPage = lazyWithRetry(() => import("./pages/NewsPage.tsx"));
+const Account = lazyWithRetry(() => import("./pages/Account.tsx"));
 
 const queryClient = new QueryClient();
 
