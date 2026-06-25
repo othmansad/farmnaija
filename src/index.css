@@ -1,102 +1,108 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ---------------------------------------------------------------------------
+ * FarmWise — Harvest Earth design tokens
+ * Palette: #1f3a2e deep forest · #3d7a4f leaf · #e8a23a harvest gold · #f7f1e3 cream
+ * Type:    Instrument Serif (display, italic) + Work Sans (body)
+ * ------------------------------------------------------------------------- */
+
 @layer base {
   :root {
-    --background: 42 35% 96%;
-    --foreground: 20 40% 12%;
+    --background: 43 60% 93%;        /* cream */
+    --foreground: 148 31% 14%;       /* deep forest text */
 
-    --card: 40 30% 99%;
-    --card-foreground: 20 40% 12%;
+    --card: 40 50% 98%;
+    --card-foreground: 148 31% 14%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 20 40% 12%;
+    --popover-foreground: 148 31% 14%;
 
-    --primary: 148 50% 26%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 148 31% 17%;          /* deep forest */
+    --primary-foreground: 43 60% 95%;
 
-    --secondary: 26 50% 40%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 137 33% 36%;        /* leaf */
+    --secondary-foreground: 43 60% 95%;
 
-    --muted: 38 20% 91%;
-    --muted-foreground: 20 15% 42%;
+    --muted: 43 35% 88%;
+    --muted-foreground: 148 18% 32%;
 
-    --accent: 90 45% 45%;
-    --accent-foreground: 20 40% 12%;
+    --accent: 36 79% 57%;            /* harvest gold */
+    --accent-foreground: 148 31% 14%;
 
     --destructive: 0 75% 48%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 32 18% 82%;
-    --input: 32 18% 82%;
-    --ring: 148 50% 26%;
+    --border: 148 18% 82%;
+    --input: 148 18% 82%;
+    --ring: 148 31% 17%;
 
-    --radius: 1rem;
+    --radius: 1.25rem;
 
     --earth: 22 50% 26%;
-    --earth-foreground: 0 0% 100%;
-    --harvest: 38 92% 50%;
-    --harvest-foreground: 22 45% 12%;
+    --earth-foreground: 43 60% 95%;
+    --harvest: 36 79% 57%;
+    --harvest-foreground: 148 31% 14%;
     --soil: 18 35% 18%;
-    --leaf: 105 45% 38%;
+    --leaf: 137 33% 36%;
+    --cream: 43 60% 93%;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 43 55% 96%;
+    --sidebar-foreground: 148 22% 24%;
+    --sidebar-primary: 148 31% 17%;
+    --sidebar-primary-foreground: 43 60% 95%;
+    --sidebar-accent: 43 35% 90%;
+    --sidebar-accent-foreground: 148 31% 17%;
+    --sidebar-border: 148 18% 82%;
+    --sidebar-ring: 36 79% 57%;
   }
 
   .dark {
-    --background: 20 20% 10%;
-    --foreground: 40 20% 90%;
+    --background: 148 25% 8%;
+    --foreground: 43 40% 92%;
 
-    --card: 20 15% 14%;
-    --card-foreground: 40 20% 90%;
+    --card: 148 22% 12%;
+    --card-foreground: 43 40% 92%;
 
-    --popover: 20 15% 12%;
-    --popover-foreground: 40 20% 90%;
+    --popover: 148 22% 10%;
+    --popover-foreground: 43 40% 92%;
 
-    --primary: 148 45% 32%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 137 33% 42%;
+    --primary-foreground: 43 60% 95%;
 
-    --secondary: 26 45% 45%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 36 70% 52%;
+    --secondary-foreground: 148 31% 12%;
 
-    --muted: 20 10% 20%;
-    --muted-foreground: 40 10% 60%;
+    --muted: 148 15% 18%;
+    --muted-foreground: 43 20% 70%;
 
-    --accent: 90 40% 40%;
-    --accent-foreground: 40 20% 90%;
+    --accent: 36 79% 57%;
+    --accent-foreground: 148 31% 12%;
 
     --destructive: 0 70% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 20 10% 22%;
-    --input: 20 10% 22%;
-    --ring: 148 45% 32%;
+    --border: 148 15% 22%;
+    --input: 148 15% 22%;
+    --ring: 36 79% 57%;
 
     --earth: 22 40% 30%;
-    --earth-foreground: 0 0% 100%;
-    --harvest: 38 85% 48%;
-    --harvest-foreground: 22 40% 10%;
+    --earth-foreground: 43 60% 95%;
+    --harvest: 36 79% 57%;
+    --harvest-foreground: 148 31% 12%;
     --soil: 18 30% 14%;
-    --leaf: 105 40% 35%;
+    --leaf: 137 33% 42%;
+    --cream: 43 30% 90%;
 
-    --sidebar-background: 20 15% 12%;
-    --sidebar-foreground: 40 10% 80%;
-    --sidebar-primary: 40 10% 90%;
-    --sidebar-primary-foreground: 20 15% 12%;
-    --sidebar-accent: 20 10% 18%;
-    --sidebar-accent-foreground: 40 10% 90%;
-    --sidebar-border: 20 10% 20%;
-    --sidebar-ring: 148 45% 32%;
+    --sidebar-background: 148 22% 10%;
+    --sidebar-foreground: 43 25% 82%;
+    --sidebar-primary: 43 40% 92%;
+    --sidebar-primary-foreground: 148 31% 12%;
+    --sidebar-accent: 148 15% 16%;
+    --sidebar-accent-foreground: 43 40% 92%;
+    --sidebar-border: 148 15% 20%;
+    --sidebar-ring: 36 79% 57%;
   }
 }
 
@@ -106,38 +112,48 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Instrument Serif', 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
   }
 }
 
 @layer utilities {
+  .font-display { font-family: 'Instrument Serif', Georgia, serif; }
+  .font-body    { font-family: 'Work Sans', system-ui, sans-serif; }
+
   .card-farm {
-    @apply bg-card rounded-2xl border p-5 transition-all duration-300 ease-out;
-    box-shadow: 0 2px 16px -4px hsl(20 40% 12% / 0.07), 0 1px 3px -1px hsl(20 40% 12% / 0.04);
+    @apply bg-card rounded-3xl border p-5 transition-all duration-300 ease-out;
+    box-shadow: 0 2px 16px -4px hsl(148 31% 14% / 0.08), 0 1px 3px -1px hsl(148 31% 14% / 0.05);
   }
   .card-farm:hover {
-    box-shadow: 0 8px 30px -6px hsl(20 40% 12% / 0.12), 0 2px 8px -2px hsl(20 40% 12% / 0.06);
+    box-shadow: 0 10px 32px -8px hsl(148 31% 14% / 0.16), 0 2px 8px -2px hsl(148 31% 14% / 0.06);
     transform: translateY(-1px);
   }
-  .card-farm:active {
-    transform: translateY(0);
-  }
+  .card-farm:active { transform: translateY(0); }
+
   .btn-farm {
     @apply bg-primary text-primary-foreground rounded-2xl px-6 py-3.5 text-base font-extrabold active:scale-95 transition-all duration-200;
-    box-shadow: 0 4px 14px -3px hsl(148 50% 26% / 0.4);
+    box-shadow: 0 6px 18px -4px hsl(148 31% 17% / 0.42);
   }
-  .btn-farm:hover {
-    box-shadow: 0 6px 20px -3px hsl(148 50% 26% / 0.5);
-  }
+  .btn-farm:hover { box-shadow: 0 10px 26px -6px hsl(148 31% 17% / 0.55); }
+
   .text-farm-label {
-    @apply text-xs font-bold text-muted-foreground uppercase tracking-widest;
+    @apply text-[10px] font-bold text-muted-foreground uppercase;
+    letter-spacing: 0.18em;
   }
   .gradient-header {
-    background: linear-gradient(135deg, hsl(148, 50%, 26%) 0%, hsl(148, 45%, 20%) 40%, hsl(105, 40%, 28%) 100%);
+    background:
+      radial-gradient(120% 100% at 0% 0%, hsl(137 33% 28% / 0.55) 0%, transparent 60%),
+      linear-gradient(135deg, hsl(148 31% 17%) 0%, hsl(148 31% 14%) 55%, hsl(148 31% 11%) 100%);
   }
   .gradient-harvest {
-    background: linear-gradient(135deg, hsl(38, 92%, 50%) 0%, hsl(26, 85%, 52%) 100%);
+    background: linear-gradient(135deg, hsl(36 79% 57%) 0%, hsl(32 78% 50%) 100%);
   }
   .icon-badge {
     @apply p-2.5 rounded-2xl flex-shrink-0 transition-transform duration-200;
