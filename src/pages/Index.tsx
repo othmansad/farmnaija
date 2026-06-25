@@ -141,44 +141,43 @@ const Index = () => {
         )}
       </main>
 
-      {/* Fixed bottom bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 px-3 sm:px-4 pb-4 sm:pb-5 pt-3 bg-gradient-to-t from-background via-background/95 to-transparent">
-        <div className="flex gap-2.5 sm:gap-3 max-w-md mx-auto">
-          {user ? (
+      {/* Fixed bottom bar — editorial pill */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 px-3 sm:px-4 pb-4 sm:pb-6 pt-4 bg-gradient-to-t from-background via-background/95 to-transparent">
+        <div className="max-w-md mx-auto">
+          <div className="bg-primary rounded-full p-1.5 flex items-center gap-1.5 shadow-2xl ring-4 ring-background/80">
+            {user ? (
+              <Link
+                to="/planner"
+                onClick={peekSidebar}
+                className="flex-1 py-3 px-4 bg-secondary text-secondary-foreground rounded-full flex items-center justify-center gap-2 active:scale-[0.97] transition-all"
+              >
+                <CalendarDays className="w-4 h-4" />
+                <span className="text-[11px] font-black uppercase tracking-[0.14em]">
+                  {language === "en" ? "My Farm" : "Gonata"}
+                </span>
+              </Link>
+            ) : (
+              <Link
+                to="/auth"
+                onClick={peekSidebar}
+                className="flex-1 py-3 px-4 bg-secondary text-secondary-foreground rounded-full flex items-center justify-center gap-2 active:scale-[0.97] transition-all"
+              >
+                <Rocket className="w-4 h-4" />
+                <span className="text-[11px] font-black uppercase tracking-[0.14em]">
+                  {language === "en" ? "Get Started" : "Fara"}
+                </span>
+              </Link>
+            )}
             <Link
-              to="/planner"
-              onClick={peekSidebar}
-              className="gradient-harvest text-harvest-foreground rounded-2xl shadow-lg active:scale-[0.97] transition-all duration-200 flex items-center justify-center gap-2 py-3.5 sm:py-4 px-4 sm:px-5"
-              style={{ boxShadow: "0 6px 24px -4px hsl(38 92% 50% / 0.45)" }}
+              to="/chat"
+              className="flex-1 py-3 px-4 gradient-harvest text-harvest-foreground rounded-full flex items-center justify-center gap-2 active:scale-[0.97] transition-all shadow-inner"
             >
-              <CalendarDays className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="text-xs sm:text-sm font-black tracking-wide whitespace-nowrap">
-                {language === "en" ? "My Farm" : "Gonata"}
+              <Bot className="w-4 h-4" />
+              <span className="text-[11px] font-black uppercase tracking-[0.14em]">
+                {language === "en" ? "Ask Assistant" : "Tambayi"}
               </span>
             </Link>
-          ) : (
-            <Link
-              to="/auth"
-              onClick={peekSidebar}
-              className="gradient-harvest text-harvest-foreground rounded-2xl shadow-lg active:scale-[0.97] transition-all duration-200 flex items-center justify-center gap-2 py-3.5 sm:py-4 px-4 sm:px-5"
-              style={{ boxShadow: "0 6px 24px -4px hsl(38 92% 50% / 0.45)" }}
-            >
-              <Rocket className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="text-xs sm:text-sm font-black tracking-wide whitespace-nowrap">
-                {language === "en" ? "Get Started" : "Fara"}
-              </span>
-            </Link>
-          )}
-          <Link
-            to="/chat"
-            className="flex-1 gradient-header text-primary-foreground rounded-2xl shadow-xl active:scale-[0.97] transition-all duration-200 flex items-center justify-center gap-2 sm:gap-3 py-3.5 sm:py-4"
-            style={{ boxShadow: "0 8px 32px -6px hsl(148 50% 26% / 0.5)" }}
-          >
-            <Bot className="w-4 h-4 sm:w-5 sm:h-5" />
-            <span className="text-xs sm:text-sm font-black tracking-wide">
-              {language === "en" ? "🧑‍🌾 Ask Assistant" : "🧑‍🌾 Tambayi"}
-            </span>
-          </Link>
+          </div>
         </div>
       </div>
 
