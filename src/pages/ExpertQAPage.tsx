@@ -60,26 +60,14 @@ const ExpertQAPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 gradient-header px-4 py-3 flex items-center justify-between shadow-lg">
-        <div className="flex items-center gap-3">
-          <Link to="/community" className="text-primary-foreground/80 hover:text-primary-foreground p-1.5 rounded-lg hover:bg-primary-foreground/10">
-            <ArrowLeft className="w-5 h-5" />
-          </Link>
-          <div className="flex items-center gap-2.5">
-            <div className="bg-primary-foreground/15 backdrop-blur-sm p-2 rounded-xl">
-              <GraduationCap className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="text-primary-foreground font-black text-base tracking-tight">
-              {language === "en" ? "Expert Q&A" : "Tambaya da Amsa"}
-            </span>
-          </div>
-        </div>
-        <button onClick={toggleSidebar} className="text-primary-foreground/80 hover:text-primary-foreground p-2 rounded-xl hover:bg-primary-foreground/10">
-          <Menu className="w-5 h-5" />
-        </button>
-      </header>
+      <PageHeader
+        icon={GraduationCap}
+        title={language === "en" ? "Expert Q&A" : "Tambaya da Amsa"}
+        subtitle={language === "en" ? "Ask verified experts" : "Tambayi masana"}
+        backTo="/community"
+      />
 
-      <div className="max-w-2xl mx-auto px-3 sm:px-5 py-5 space-y-4">
+      <div className="max-w-2xl mx-auto px-3 sm:px-5 py-4 sm:py-6 pb-24 space-y-4">
         <form onSubmit={submit} className="card-farm space-y-3">
           <h2 className="font-black text-base">
             {language === "en" ? "Ask an expert" : "Tambayi masani"}
