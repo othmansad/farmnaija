@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { BookOpen, Home, Menu, Search, PlayCircle, Bug, Sprout, Droplets, Sun, Lightbulb } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Guide {
   id: string; title: string; titleHa: string; category: string; readTime: string;
