@@ -17,6 +17,7 @@ import {
 } from "recharts";
 import { fetchWeather, type WeatherData } from "@/services/weather";
 import { supabase } from "@/integrations/supabase/client";
+import { PageHeader } from "@/components/PageHeader";
 
 // Mock market price data — Nigerian crops, NGN per 100kg bag
 const MARKET_PRICES = [
