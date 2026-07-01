@@ -20,6 +20,7 @@ import {
   Sprout, ListTodo, BarChart3, Loader2, ChevronDown, Leaf, AlertTriangle, Sun, Droplets, Sparkles
 } from "lucide-react";
 import { AIPlanGenerator } from "@/components/AIPlanGenerator";
+import { PageHeader } from "@/components/PageHeader";
 
 // --- Types ---
 interface PlantingEvent {
