@@ -117,21 +117,21 @@ const Account = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-40 gradient-header px-4 py-4 shadow-md">
+      <header className="sticky top-0 z-40 gradient-header px-3 sm:px-6 py-3 sm:py-4 shadow-xl">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <button
             onClick={() => navigate(-1)}
-            className="p-2 rounded-xl bg-primary-foreground/15 hover:bg-primary-foreground/25 text-primary-foreground transition-colors"
+            className="flex-shrink-0 p-2 rounded-xl bg-primary-foreground/10 hover:bg-primary-foreground/20 text-primary-foreground active:scale-95 transition-all"
             aria-label="Back"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
-          <div>
-            <h1 className="text-primary-foreground font-black text-lg tracking-tight">
+          <div className="min-w-0">
+            <h1 className="font-display italic text-primary-foreground text-xl sm:text-2xl leading-none truncate">
               {t("Account", "Asusu")}
             </h1>
-            <p className="text-primary-foreground/70 text-xs font-semibold">
-              {t("Manage your profile & security", "Sarrafa bayanan asusunka")}
+            <p className="text-primary-foreground/60 text-[10px] font-bold uppercase tracking-[0.18em] mt-1 truncate">
+              {t("Profile & security", "Bayanan asusu")}
             </p>
           </div>
         </div>
