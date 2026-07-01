@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { BookOpen, Home, Menu, Search, PlayCircle, Bug, Sprout, Droplets, Sun, Lightbulb } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Guide {
   id: string; title: string; titleHa: string; category: string; readTime: string;
@@ -107,30 +108,17 @@ const LearnPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 gradient-header px-4 sm:px-6 py-3 flex items-center justify-between shadow-lg">
-        <div className="flex items-center gap-3">
-          <Link to="/" className="text-primary-foreground/80 hover:text-primary-foreground p-1.5 rounded-lg hover:bg-primary-foreground/10">
-            <Home className="w-5 h-5" />
-          </Link>
-          <div className="flex items-center gap-2.5">
-            <div className="bg-primary-foreground/15 backdrop-blur-sm p-2 rounded-xl">
-              <BookOpen className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="text-primary-foreground font-black text-lg tracking-tight">
-              {language === "en" ? "Learn" : "Koyi"}
-            </span>
-          </div>
-        </div>
-        <button onClick={toggleSidebar} className="text-primary-foreground p-2 rounded-xl hover:bg-primary-foreground/10">
-          <Menu className="w-5 h-5" />
-        </button>
-      </header>
+      <PageHeader
+        icon={BookOpen}
+        title={language === "en" ? "Learn" : "Koyi"}
+        subtitle={language === "en" ? "Guides · Videos · Tips" : "Jagorori"}
+      />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-5 space-y-4 pb-20">
+      <div className="max-w-5xl mx-auto px-3 sm:px-6 py-4 sm:py-6 space-y-4 pb-24">
         <div>
-          <h1 className="text-2xl font-black tracking-tight">{language === "en" ? "Farming Knowledge" : "Ilimin Noma"}</h1>
-          <p className="text-xs text-muted-foreground font-semibold mt-1">
-            {language === "en" ? "Expert guides, videos, and best practices" : "Jagorori daga masana"}
+          <h2 className="font-display italic text-3xl sm:text-4xl leading-none">{language === "en" ? "Farming Knowledge" : "Ilimin Noma"}</h2>
+          <p className="text-[11px] text-muted-foreground font-bold uppercase tracking-[0.16em] mt-2">
+            {language === "en" ? "Expert guides · videos · best practices" : "Jagorori daga masana"}
           </p>
         </div>
 

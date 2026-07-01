@@ -4,6 +4,7 @@ import { useApp } from "@/contexts/AppContext";
 import { useSidebar } from "@/components/ui/sidebar";
 import { ArrowLeft, Menu, MessageSquare, Send, Heart } from "lucide-react";
 import { THREADS, SEED_REPLIES, type Reply } from "@/data/communityMocks";
+import { PageHeader } from "@/components/PageHeader";
 
 const ForumThreadPage = () => {
   const { id = "" } = useParams();
@@ -34,26 +35,14 @@ const ForumThreadPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 gradient-header px-4 py-3 flex items-center justify-between shadow-lg">
-        <div className="flex items-center gap-3">
-          <Link to="/community" className="text-primary-foreground/80 hover:text-primary-foreground p-1.5 rounded-lg hover:bg-primary-foreground/10">
-            <ArrowLeft className="w-5 h-5" />
-          </Link>
-          <div className="flex items-center gap-2.5 min-w-0">
-            <div className="bg-primary-foreground/15 backdrop-blur-sm p-2 rounded-xl">
-              <MessageSquare className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="text-primary-foreground font-black text-base tracking-tight truncate">
-              {language === "en" ? "Forum" : "Dandali"}
-            </span>
-          </div>
-        </div>
-        <button onClick={toggleSidebar} className="text-primary-foreground/80 hover:text-primary-foreground p-2 rounded-xl hover:bg-primary-foreground/10">
-          <Menu className="w-5 h-5" />
-        </button>
-      </header>
+      <PageHeader
+        icon={MessageSquare}
+        title={language === "en" ? "Forum" : "Dandali"}
+        subtitle={language === "en" ? "Discussion thread" : "Zaren tattaunawa"}
+        backTo="/community"
+      />
 
-      <div className="max-w-2xl mx-auto px-3 sm:px-5 py-5 space-y-4">
+      <div className="max-w-2xl mx-auto px-3 sm:px-5 py-4 sm:py-6 pb-24 space-y-4">
         <article className="card-farm">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-accent/15 text-accent-foreground">{thread.tag}</span>

@@ -17,6 +17,7 @@ import {
 } from "recharts";
 import { fetchWeather, type WeatherData } from "@/services/weather";
 import { supabase } from "@/integrations/supabase/client";
+import { PageHeader } from "@/components/PageHeader";
 
 // Mock market price data — Nigerian crops, NGN per 100kg bag
 const MARKET_PRICES = [
@@ -86,30 +87,17 @@ const AnalyticsPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 gradient-header px-4 sm:px-6 py-3 flex items-center justify-between shadow-lg">
-        <div className="flex items-center gap-3">
-          <Link to="/" className="text-primary-foreground/80 hover:text-primary-foreground p-1.5 rounded-lg hover:bg-primary-foreground/10">
-            <Home className="w-5 h-5" />
-          </Link>
-          <div className="flex items-center gap-2.5">
-            <div className="bg-primary-foreground/15 backdrop-blur-sm p-2 rounded-xl">
-              <BarChart3 className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="text-primary-foreground font-black text-lg tracking-tight">
-              {language === "en" ? "Analytics" : "Nazari"}
-            </span>
-          </div>
-        </div>
-        <button onClick={toggleSidebar} className="text-primary-foreground p-2 rounded-xl hover:bg-primary-foreground/10">
-          <Menu className="w-5 h-5" />
-        </button>
-      </header>
+      <PageHeader
+        icon={BarChart3}
+        title={language === "en" ? "Analytics" : "Nazari"}
+        subtitle={language === "en" ? "Weather · Yield · Market" : "Yanayi · Kasuwa"}
+      />
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-5 space-y-5">
+      <div className="max-w-3xl mx-auto px-3 sm:px-6 py-4 sm:py-6 pb-24 space-y-5">
         <div>
-          <h1 className="text-2xl font-black tracking-tight">{language === "en" ? "Farm Analytics" : "Nazarin Gona"}</h1>
-          <p className="text-xs text-muted-foreground font-semibold mt-1">
-            {stateName} • {language === "en" ? "Live data & trends" : "Bayanai masu rai"}
+          <h2 className="font-display italic text-3xl sm:text-4xl leading-none">{language === "en" ? "Farm Analytics" : "Nazarin Gona"}</h2>
+          <p className="text-[11px] text-muted-foreground font-bold uppercase tracking-[0.16em] mt-2">
+            {stateName} · {language === "en" ? "Live data & trends" : "Bayanai masu rai"}
           </p>
         </div>
 

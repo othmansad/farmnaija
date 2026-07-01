@@ -1,6 +1,6 @@
 import { useApp } from "@/contexts/AppContext";
 import { t } from "@/data/translations";
-import { MapPin, Globe, Rocket } from "lucide-react";
+import { MapPin, Globe, Rocket, Menu } from "lucide-react";
 import SettingsSheet from "@/components/SettingsSheet";
 import { useSidebar } from "@/components/ui/sidebar";
 
@@ -47,6 +47,13 @@ const Header = () => {
               {language === "en" ? "HA" : "EN"}
             </button>
             <SettingsSheet />
+            <button
+              onClick={toggleSidebar}
+              aria-label="Menu"
+              className="sm:hidden text-primary-foreground p-2 rounded-full bg-primary-foreground/15 hover:bg-primary-foreground/25 active:scale-95 transition-all ring-1 ring-primary-foreground/15"
+            >
+              <Menu className="w-4 h-4" />
+            </button>
           </div>
         </div>
         <div className="font-display italic text-primary-foreground text-3xl sm:text-4xl leading-[1.05] tracking-tight">

@@ -5,6 +5,7 @@ import { useSidebar } from "@/components/ui/sidebar";
 import { Newspaper, Home, Menu, Building2, CloudLightning, TrendingUp, Search, ExternalLink, Calendar, RefreshCw, Loader2 } from "lucide-react";
 import { trackEvent } from "@/services/analytics";
 import { supabase } from "@/integrations/supabase/client";
+import { PageHeader } from "@/components/PageHeader";
 
 type Category = "all" | "news" | "policy" | "weather" | "market";
 
@@ -107,35 +108,22 @@ const NewsPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 gradient-header px-4 py-3 flex items-center justify-between shadow-lg">
-        <div className="flex items-center gap-3">
-          <Link to="/" className="text-primary-foreground/80 hover:text-primary-foreground p-1.5 rounded-lg hover:bg-primary-foreground/10">
-            <Home className="w-5 h-5" />
-          </Link>
-          <div className="flex items-center gap-2.5">
-            <div className="bg-primary-foreground/15 backdrop-blur-sm p-2 rounded-xl">
-              <Newspaper className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="text-primary-foreground font-black text-lg tracking-tight">
-              {language === "en" ? "News" : "Labarai"}
-            </span>
-          </div>
-        </div>
-        <div className="flex items-center gap-1">
+      <PageHeader
+        icon={Newspaper}
+        title={language === "en" ? "News" : "Labarai"}
+        subtitle={language === "en" ? "Policy · Market · Weather" : "Manufofi · Kasuwa"}
+        rightSlot={
           <button
             onClick={() => loadNews(true)}
             aria-label="Refresh"
-            className="text-primary-foreground/80 hover:text-primary-foreground p-2 rounded-xl hover:bg-primary-foreground/10"
+            className="text-primary-foreground/85 hover:text-primary-foreground p-2 rounded-xl bg-primary-foreground/10 hover:bg-primary-foreground/20 active:scale-95 transition-all"
           >
-            <RefreshCw className={`w-5 h-5 ${loading ? "animate-spin" : ""}`} />
+            <RefreshCw className={`w-4 h-4 sm:w-5 sm:h-5 ${loading ? "animate-spin" : ""}`} />
           </button>
-          <button onClick={toggleSidebar} className="text-primary-foreground/80 hover:text-primary-foreground p-2 rounded-xl hover:bg-primary-foreground/10">
-            <Menu className="w-5 h-5" />
-          </button>
-        </div>
-      </header>
+        }
+      />
 
-      <div className="max-w-3xl mx-auto px-3 sm:px-5 py-5 space-y-4">
+      <div className="max-w-3xl mx-auto px-3 sm:px-5 py-4 sm:py-6 pb-24 space-y-4">
         {/* Search */}
         <div className="relative">
           <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
