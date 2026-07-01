@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useApp } from "@/contexts/AppContext";
 import { useSidebar } from "@/components/ui/sidebar";
 import { ArrowLeft, Menu, GraduationCap, Send, Clock, CheckCircle2 } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
 
 interface Question {
   id: string;
