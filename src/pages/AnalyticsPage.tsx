@@ -95,9 +95,9 @@ const AnalyticsPage = () => {
 
       <div className="max-w-3xl mx-auto px-3 sm:px-6 py-4 sm:py-6 pb-24 space-y-5">
         <div>
-          <h1 className="text-2xl font-black tracking-tight">{language === "en" ? "Farm Analytics" : "Nazarin Gona"}</h1>
-          <p className="text-xs text-muted-foreground font-semibold mt-1">
-            {stateName} • {language === "en" ? "Live data & trends" : "Bayanai masu rai"}
+          <h2 className="font-display italic text-3xl sm:text-4xl leading-none">{language === "en" ? "Farm Analytics" : "Nazarin Gona"}</h2>
+          <p className="text-[11px] text-muted-foreground font-bold uppercase tracking-[0.16em] mt-2">
+            {stateName} · {language === "en" ? "Live data & trends" : "Bayanai masu rai"}
           </p>
         </div>
 
