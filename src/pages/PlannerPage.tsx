@@ -190,23 +190,13 @@ const PlannerPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-50 gradient-header px-4 py-3 flex items-center justify-between shadow-lg">
-        <div className="flex items-center gap-3">
-          <Link to="/" className="text-primary-foreground/80 hover:text-primary-foreground p-1.5 rounded-lg hover:bg-primary-foreground/10">
-            <Home className="w-5 h-5" />
-          </Link>
-          <div className="flex items-center gap-2">
-            <CalendarDays className="w-5 h-5 text-primary-foreground" />
-            <span className="text-primary-foreground font-black text-lg">{en ? "Farm Planner" : "Tsarin Noma"}</span>
-          </div>
-        </div>
-        <button onClick={toggleSidebar} className="text-primary-foreground/80 hover:text-primary-foreground p-2 rounded-xl hover:bg-primary-foreground/10">
-          <Menu className="w-5 h-5" />
-        </button>
-      </header>
+      <PageHeader
+        icon={CalendarDays}
+        title={en ? "Farm Planner" : "Tsarin Noma"}
+        subtitle={en ? "Plan · Track · Grow" : "Tsari · Bibiya"}
+      />
 
-      <div className="max-w-4xl mx-auto px-3 sm:px-5 py-4 sm:py-6">
+      <div className="max-w-4xl mx-auto px-3 sm:px-5 py-4 sm:py-6 pb-24">
         <Tabs value={tab} onValueChange={setTab}>
           <TabsList className="w-full grid grid-cols-4 mb-4 h-auto p-1">
             <TabsTrigger value="calendar" className="text-[11px] sm:text-xs font-bold gap-1 py-2 flex-col sm:flex-row">
