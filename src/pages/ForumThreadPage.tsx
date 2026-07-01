@@ -4,6 +4,7 @@ import { useApp } from "@/contexts/AppContext";
 import { useSidebar } from "@/components/ui/sidebar";
 import { ArrowLeft, Menu, MessageSquare, Send, Heart } from "lucide-react";
 import { THREADS, SEED_REPLIES, type Reply } from "@/data/communityMocks";
+import { PageHeader } from "@/components/PageHeader";
 
 const ForumThreadPage = () => {
   const { id = "" } = useParams();
