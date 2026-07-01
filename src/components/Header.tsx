@@ -1,6 +1,6 @@
 import { useApp } from "@/contexts/AppContext";
 import { t } from "@/data/translations";
-import { MapPin, Globe, Rocket } from "lucide-react";
+import { MapPin, Globe, Rocket, Menu } from "lucide-react";
 import SettingsSheet from "@/components/SettingsSheet";
 import { useSidebar } from "@/components/ui/sidebar";
 
