@@ -5,6 +5,7 @@ import { useSidebar } from "@/components/ui/sidebar";
 import { Newspaper, Home, Menu, Building2, CloudLightning, TrendingUp, Search, ExternalLink, Calendar, RefreshCw, Loader2 } from "lucide-react";
 import { trackEvent } from "@/services/analytics";
 import { supabase } from "@/integrations/supabase/client";
+import { PageHeader } from "@/components/PageHeader";
 
 type Category = "all" | "news" | "policy" | "weather" | "market";
 
