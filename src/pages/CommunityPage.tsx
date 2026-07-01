@@ -5,6 +5,7 @@ import { useSidebar } from "@/components/ui/sidebar";
 import { Users, Home, Menu, MessageSquare, GraduationCap, Star, Heart, MessageCircle, UserPlus, CheckCircle2 } from "lucide-react";
 import { trackEvent } from "@/services/analytics";
 import { THREADS } from "@/data/communityMocks";
+import { PageHeader } from "@/components/PageHeader";
 
 type Tab = "groups" | "forum" | "experts" | "stories";
 
