@@ -224,7 +224,7 @@ export function AppSidebar() {
               {user ? (
                 <div className="space-y-2">
                   <button
-                    onClick={() => navigate("/account")}
+                    onClick={() => { navigate("/account"); closeSidebar(); }}
                     className={`w-full flex items-center gap-2 bg-muted/50 hover:bg-muted rounded-xl p-2.5 transition-colors text-left ${location.pathname === "/account" ? "ring-1 ring-primary/40" : ""}`}
                   >
                     <div className="bg-primary/10 p-1.5 rounded-lg">
