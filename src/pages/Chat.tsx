@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useApp } from "@/contexts/AppContext";
 import { t } from "@/data/translations";
 import { useWeatherData } from "@/components/WeatherCard";
@@ -10,6 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { VoiceInputButton, SpeakButton } from "@/components/VoiceButton";
 import { trackEvent } from "@/services/analytics";
 import ReactMarkdown from "react-markdown";
+
 
 interface Message {
   role: "user" | "assistant";
