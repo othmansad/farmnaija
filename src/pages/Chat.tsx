@@ -110,15 +110,15 @@ const ChatPage = () => {
           {messages.map((msg, i) => (
             <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"} animate-fade-up`}>
               <div
-                className={`max-w-[85%] sm:max-w-[75%] rounded-2xl px-4 py-3.5 text-sm leading-relaxed ${
+                className={`max-w-[85%] sm:max-w-[75%] rounded-2xl px-4 py-3.5 leading-relaxed ${
                   msg.role === "user"
-                    ? "gradient-header text-primary-foreground rounded-br-lg shadow-md font-semibold"
-                    : "bg-card text-foreground rounded-bl-lg shadow-sm border"
+                    ? "gradient-header text-primary-foreground rounded-br-lg shadow-md text-sm font-bold tracking-tight"
+                    : "bg-card text-foreground rounded-bl-lg shadow-sm border text-sm"
                 }`}
               >
                 {msg.role === "assistant" ? (
                   <div>
-                    <div className="prose prose-sm max-w-none font-medium dark:prose-invert">
+                    <div className="prose prose-sm max-w-none dark:prose-invert">
                       <ReactMarkdown>{msg.content}</ReactMarkdown>
                     </div>
                     <SpeakButton text={msg.content} language={language} />
@@ -134,7 +134,7 @@ const ChatPage = () => {
               <div className="bg-card border rounded-2xl rounded-bl-lg px-4 py-3.5 shadow-sm">
                 <div className="flex items-center gap-2.5">
                   <Loader2 className="w-4 h-4 animate-spin text-primary" />
-                  <span className="text-xs text-muted-foreground font-bold">
+                  <span className="text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">
                     {language === "en" ? "Thinking..." : "Ina tunani..."}
                   </span>
                 </div>
