@@ -19,8 +19,10 @@ interface Message {
 }
 
 const ChatPage = () => {
+  const navigate = useNavigate();
   const { language, stateName, stateId, lga } = useApp();
   const { weather } = useWeatherData();
+
   const [messages, setMessages] = useState<Message[]>([
     { role: "assistant", content: t("welcomeMsg", language) },
   ]);
