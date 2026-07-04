@@ -159,9 +159,11 @@ const ChatPage = () => {
         <div className="max-w-2xl mx-auto px-4 sm:px-6 py-3.5">
           <div className="flex gap-2.5 items-end">
             <VoiceInputButton
-              onTranscript={(text) => setInput(prev => prev ? prev + " " + text : text)}
+              onTranscript={(text) => setInput((prev) => (prev ? prev + " " + text : text))}
+              onInterim={(text) => setInput(text)}
               language={language}
             />
+
             <input
               type="text"
               value={input}
