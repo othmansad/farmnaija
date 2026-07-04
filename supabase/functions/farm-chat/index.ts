@@ -101,13 +101,16 @@ serve(async (req) => {
     }
 
     const langInstruction = safeLanguage === "ha"
-      ? "Respond in Hausa language."
-      : "Respond in English.";
+      ? "CRITICAL: You MUST respond ONLY in Hausa (Harshen Hausa). Every sentence, bullet, and heading must be written in Hausa. Do not use English words except for scientific crop names when no Hausa equivalent exists."
+      : "CRITICAL: You MUST respond ONLY in English. Every sentence must be written in English.";
 
     const systemPrompt = `You are a Nigerian agricultural extension officer.
 State: ${safeState}
 Area: ${safeLga}
 Weather: ${safeWeather}
+User's preferred language: ${safeLanguage === "ha" ? "Hausa" : "English"}
+
+${langInstruction}
 
 Suitable crops and farming data for this state:
 ${safeCropData}
@@ -120,7 +123,8 @@ Rules:
 - When asked about planting, include spacing, soil preparation, and fertilizer timing.
 - Keep responses concise with bullet points for recommendations.
 - If the farmer asks about a crop not suited for their state, explain why and suggest alternatives.
-${langInstruction}`;
+- ${langInstruction}`;
+
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
